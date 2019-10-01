@@ -30,36 +30,41 @@ public class SelectionManager : MonoBehaviour
     //single pattern ends here
     #endregion  
 
+    //mouse selection
     public MouseEvent currentEvent = MouseEvent.Nothing;
 
+    //list of all selected objects
     public List<GameObject> SelectedObjects;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         //selection checking
-        #region selectionCode
         if (Input.GetMouseButtonDown(0)){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 100)&& !EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log(hit.transform.gameObject.name);
+                //Debug.Log(hit.transform.gameObject.name);
 
-                
                 if (hit.transform.gameObject.tag == "SelectableObject")
                 {
-                    currentEvent = MouseEvent.Selection;
+                    //deselect everything else if left control is not holded down
+                    if (!Input.GetKeyDown(KeyCode.LeftControl)) { 
+                        foreach (GameObject obj in SelectedObjects)
+                        {
+                            obj.GetComponent<SelectableObject>().OnDeselect();
+                        }
+                        SelectedObjects.Clear();
+                    }
+
                     SelectedObjects.Add(hit.transform.gameObject);
+                    currentEvent = MouseEvent.Selection;
                     hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
                 }
+                //deselect on ground hit
                 else if (hit.transform.gameObject.tag == "Ground") {
                     foreach (GameObject obj in SelectedObjects)
                     {
@@ -70,8 +75,15 @@ public class SelectionManager : MonoBehaviour
                 }
             }
         }
-        #endregion
 
+    }
 
+    public void OnPrefabCreation() {
+        currentEvent = MouseEvent.PrefabBuild;
+        foreach (GameObject obj in SelectedObjects)
+        {
+            obj.GetComponent<SelectableObject>().OnDeselect();
+        }
+        SelectedObjects.Clear();
     }
 }

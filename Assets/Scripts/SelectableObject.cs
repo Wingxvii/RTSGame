@@ -6,6 +6,8 @@ using UnityEditor;
 public class SelectableObject : MonoBehaviour
 {
     public Behaviour halo;
+    public int level = 1;
+    public int id;
 
     // Start is called before the first frame update
     void Start()
