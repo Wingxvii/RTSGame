@@ -1,5 +1,47 @@
 #include "MapLoader.h"
 
+MapLoader* MapLoader::instance = 0;
+
+PLUGIN_API void loadMap()
+{
+	MapLoader::getInstance()->loadMap();
+}
+
+PLUGIN_API void saveItem(float t, float x, float y, float z)
+{
+	MapLoader::getInstance()->saveItem(t, x, y, z);
+}
+
+PLUGIN_API void clearFile()
+{
+	MapLoader::getInstance()->clearFile();
+}
+
+PLUGIN_API int getObjectAmount()
+{
+	return getObjectAmount();
+}
+
+PLUGIN_API float getType(int obj)
+{
+	return getType(obj);
+}
+
+PLUGIN_API float getX(int obj)
+{
+	return getX(obj);
+}
+
+PLUGIN_API float getY(int obj)
+{
+	return getY(obj);
+}
+
+PLUGIN_API float getZ(int obj)
+{
+	return getZ(obj);
+}
+
 void MapLoader::loadMap()
 {
 	type.clear();
@@ -21,7 +63,7 @@ void MapLoader::loadMap()
 	saveFile.close();
 }
 
-void MapLoader::saveMap(float t, float x, float y, float z)
+void MapLoader::saveItem(float t, float x, float y, float z)
 {
 	std::ofstream saveFile;
 	saveFile.open(filepath, std::fstream::app);

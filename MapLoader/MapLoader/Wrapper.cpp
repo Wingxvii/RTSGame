@@ -7,9 +7,9 @@ PLUGIN_API void loadMap()
 	return mapLoader.loadMap();
 }
 
-PLUGIN_API void saveMap(float t, float x, float y, float z)
+PLUGIN_API void saveItem(float t, float x, float y, float z)
 {
-	return mapLoader.saveMap(t, x, y, z);
+	return mapLoader.saveItem(t, x, y, z);
 }
 
 PLUGIN_API void clearFile()

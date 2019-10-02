@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public enum MouseEvent {
+public enum MouseEvent
+{
     Nothing = 0,
     Selection = 1,
     PrefabBuild = 2,
@@ -132,7 +133,8 @@ public class SelectionManager : MonoBehaviour
         currentEvent = MouseEvent.PrefabBuild;
     }
 
-    public void ClearSelection() {
+    public void ClearSelection()
+    {
         if (!SelectedObjects.Count.Equals(0))
         {
             foreach (GameObject obj in SelectedObjects)
@@ -150,7 +152,8 @@ public class SelectionManager : MonoBehaviour
 
         GameObject returnObj;
         Building temp;
-        switch (type) {
+        switch (type)
+        {
 
             case BuildingEnum.BlueBuilding:
                 temp = new BlueBuilding(pos, out returnObj);
@@ -168,6 +171,6 @@ public class SelectionManager : MonoBehaviour
                 return new GameObject();
 
         }
-        
+
     }
 }
