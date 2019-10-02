@@ -11,11 +11,9 @@ GameObject:
   - component: {fileID: 4287435776433992426}
   - component: {fileID: 4184662110482489706}
   - component: {fileID: 1415050088120583538}
-  - component: {fileID: 8948517786978084954}
-  - component: {fileID: 2168862564165035046}
-  - component: {fileID: 5742260986019966821}
   - component: {fileID: 3731368387600513932}
   - component: {fileID: 3326062046626611112}
+  - component: {fileID: -3669843339596517317}
   m_Layer: 0
   m_Name: Red
   m_TagString: SelectableObject
@@ -83,51 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &8948517786978084954
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5508097730102920826}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2168862564165035046
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5508097730102920826}
-  serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 0.5
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &5742260986019966821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5508097730102920826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cc4aebcddf48b841906c6e39c9ea5ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
-  playerBody: {fileID: 0}
-  moveSpeed: 0.2
 --- !u!122 &3731368387600513932
 Halo:
   m_ObjectHideFlags: 0
@@ -155,3 +108,16 @@ MonoBehaviour:
   halo: {fileID: 0}
   level: 1
   id: 0
+--- !u!65 &-3669843339596517317
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5508097730102920826}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

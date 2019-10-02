@@ -87,5 +87,17 @@ public class CommandPattern : MonoBehaviour
         if (prefabObject.activeSelf) {
             prefabObject.GetComponent<Transform>().position = SelectionManager.Instance.mousePosition;
         }
+
+        if (Input.GetKey(KeyCode.P)) {
+            Debug.Break();
+        }
     }
+
+    public float Round(float num, float multiple)
+    {
+        int result = Mathf.RoundToInt(num / multiple);
+
+        return result * multiple;
+    }
+
 }

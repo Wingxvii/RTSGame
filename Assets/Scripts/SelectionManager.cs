@@ -54,19 +54,21 @@ public class SelectionManager : MonoBehaviour
         SelectedObjects = new List<GameObject>();
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.nearClipPlane));
 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100) && hit.transform.gameObject.tag != "SelectableObject")
+        {
+            //mousePosition = hit.point;
+            mousePosition = new Vector3(hit.point.x, 2, hit.point.z);
+        }
         //selection checking
-        if (Input.GetMouseButtonDown(0)){
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, 100)&& !EventSystem.current.IsPointerOverGameObject())
-            {
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
                 //Debug.Log(hit.transform.gameObject.name);
 
                 if (hit.transform.gameObject.tag == "SelectableObject")
@@ -94,8 +96,6 @@ public class SelectionManager : MonoBehaviour
                     SelectedObjects.Clear();
                 }
             }
-        }
-
     }
 
     public void OnPrefabCreation()
