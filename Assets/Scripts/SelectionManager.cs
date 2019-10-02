@@ -22,11 +22,19 @@ public enum MouseEvent {
 public class SelectionManager : MonoBehaviour
 {
     #region SingletonCode
-    //singleton pattern begins here
-    private static readonly SelectionManager instance = new SelectionManager();
-    static SelectionManager() { }
-    private SelectionManager() { }
-    public static SelectionManager Instance { get { return instance; } }
+    private static SelectionManager _instance;
+    public static SelectionManager Instance { get { return _instance; } }
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
     //single pattern ends here
     #endregion  
 
@@ -36,10 +44,22 @@ public class SelectionManager : MonoBehaviour
     //list of all selected objects
     public List<GameObject> SelectedObjects;
 
+    public Vector3 mousePosition;
+
+    private Camera cam;
+
+    void Start()
+    {
+        cam = Camera.main;
+        SelectedObjects = new List<GameObject>();
+    }
+
 
     // Update is called once per frame
     void Update()
     {
+        mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.nearClipPlane));
+
         //selection checking
         if (Input.GetMouseButtonDown(0)){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -78,12 +98,16 @@ public class SelectionManager : MonoBehaviour
 
     }
 
-    public void OnPrefabCreation() {
+    public void OnPrefabCreation()
+    {
         currentEvent = MouseEvent.PrefabBuild;
-        foreach (GameObject obj in SelectedObjects)
+        if (!SelectedObjects.Count.Equals(0))
         {
-            obj.GetComponent<SelectableObject>().OnDeselect();
+            foreach (GameObject obj in SelectedObjects)
+            {
+                obj.GetComponent<SelectableObject>().OnDeselect();
+            }
+            SelectedObjects.Clear();
         }
-        SelectedObjects.Clear();
     }
 }

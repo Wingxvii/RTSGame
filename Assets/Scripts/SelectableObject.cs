@@ -16,7 +16,6 @@ public class SelectableObject : MonoBehaviour
         halo.enabled = false;
     }
 
-
     public void OnSelect()
     {
         halo.enabled = true;

@@ -28,7 +28,7 @@ public class RedBuilding : Building
 {
     public RedBuilding(Vector3 pos) : base()
     {
-        self = GameObject.Instantiate((GameObject)Resources.Load("prefabs/Red", typeof(GameObject)));
+        self = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Red", typeof(GameObject)), pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
     }
 }
@@ -37,7 +37,7 @@ public class BlueBuilding : Building
 {
     public BlueBuilding(Vector3 pos) : base()
     {
-        self = GameObject.Instantiate((GameObject)Resources.Load("prefabs/Blue", typeof(GameObject)));
+        self = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Blue", typeof(GameObject)),pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
     }
 }
@@ -46,7 +46,7 @@ public class GreenBuilding : Building
 {
     public GreenBuilding(Vector3 pos) : base()
     {
-        self = GameObject.Instantiate((GameObject)Resources.Load("prefabs/Green", typeof(GameObject)));
+        self = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Green", typeof(GameObject)),pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
     }
 }
@@ -55,7 +55,7 @@ public class YellowBuilding : Building
 {
     public YellowBuilding(Vector3 pos) : base()
     {
-        self = GameObject.Instantiate((GameObject)Resources.Load("prefabs/Yellow", typeof(GameObject)));
+        self = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Yellow", typeof(GameObject)),pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
     }
 }
