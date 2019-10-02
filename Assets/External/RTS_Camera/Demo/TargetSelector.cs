@@ -9,6 +9,9 @@ public class TargetSelector : MonoBehaviour
     private new Camera camera;
     public string[] targetsTag;
 
+    private float doubleClickTime = 0.3f;
+    private float lastClickTime = -10f;
+
     private void Start()
     {
         cam = gameObject.GetComponent<RTS_Camera>();
@@ -17,24 +20,37 @@ public class TargetSelector : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit))
+            cam.ResetTarget();
+
+            float timeDelta = Time.time - lastClickTime;
+
+            if (timeDelta < doubleClickTime)
             {
-                bool foundTarget = false;
-                foreach (string target in targetsTag) {
-                    if (hit.transform.CompareTag(target))
+                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    bool foundTarget = false;
+                    foreach (string target in targetsTag)
                     {
-                        cam.SetTarget(hit.transform);
-                        foundTarget = true;
+                        if (hit.transform.CompareTag(target))
+                        {
+                            cam.SetTarget(hit.transform);
+                            foundTarget = true;
+                        }
                     }
                 }
-                if (!foundTarget) {
-                    cam.ResetTarget();
-                }
+                lastClickTime = 0;
+            }
+            else
+            {
+                lastClickTime = Time.time;
             }
         }
+
+
+
     }
 }

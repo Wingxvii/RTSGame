@@ -1732,6 +1732,11 @@ PrefabInstance:
       propertyPath: rotateRightKey
       value: 101
       objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: useKeyboardRotation
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
 --- !u!1 &1231641974
