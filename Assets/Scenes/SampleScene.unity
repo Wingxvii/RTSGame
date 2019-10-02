@@ -1074,7 +1074,7 @@ GameObject:
   - component: {fileID: 528026302}
   - component: {fileID: 528026301}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: SelectableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1200,6 +1200,8 @@ MonoBehaviour:
   halo: {fileID: 0}
   level: 1
   id: 0
+  type: 0
+  deletable: 0
 --- !u!122 &528026302
 Halo:
   m_ObjectHideFlags: 0

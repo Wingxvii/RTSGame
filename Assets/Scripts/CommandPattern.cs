@@ -165,9 +165,35 @@ public class CommandPattern : MonoBehaviour
     public void OnDelete() {
         ClearCommands();
         foreach (GameObject obj in SelectionManager.Instance.SelectedObjects) {
-            _Undocommands.Push(new DeleteCommand(obj));
+            if (obj.GetComponent<SelectableObject>().deletable)
+            {
+                _Undocommands.Push(new DeleteCommand(obj));
+            }
         }
         SelectionManager.Instance.ClearSelection();
+    }
+
+    public void OnDeleteAll()                                                               //LOOK HERE
+    {
+        ClearCommands();
+        foreach (GameObject obj in SelectionManager.Instance.AllObjects)
+        {
+            if (obj.GetComponent<SelectableObject>().deletable)
+            {
+                new DeleteCommand(obj);
+            }
+        }
+
+        //clear undo commands as well
+        foreach (ICommand command in _Undocommands)
+        {
+            command.Cleanup();
+        }
+        _Undocommands.Clear();
+
+
+        SelectionManager.Instance.ClearSelection();
+        SelectionManager.Instance.AllObjects.Clear();
     }
 
     public void ClearCommands() {

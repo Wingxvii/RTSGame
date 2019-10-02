@@ -62,7 +62,7 @@ public class SelectionManager : MonoBehaviour
         #region place prefab
         if (currentEvent == MouseEvent.PrefabBuild && Input.GetMouseButtonDown(0)) {
             Object.Destroy(CommandPattern.Instance.prefabObject);
-            AllObjects.Add(UseFactoryPattern(CommandPattern.Instance.prefabType));
+            AllObjects.Add(UseFactoryPattern(mousePosition, CommandPattern.Instance.prefabType));           //LOOK HERE
             CommandPattern.Instance.OnPlace(AllObjects[AllObjects.Count - 1]);
         }
 
@@ -141,23 +141,23 @@ public class SelectionManager : MonoBehaviour
     }
 
     //here is the factory
-    public GameObject UseFactoryPattern(BuildingEnum type) {
+    public GameObject UseFactoryPattern(Vector3 pos, BuildingEnum type) {
 
         GameObject returnObj;
         Building temp;
         switch (type) {
 
             case BuildingEnum.BlueBuilding:
-                temp = new BlueBuilding(mousePosition, out returnObj);
+                temp = new BlueBuilding(pos, out returnObj);
                 return returnObj;
             case BuildingEnum.RedBuilding:
-                temp = new RedBuilding(mousePosition, out returnObj);
+                temp = new RedBuilding(pos, out returnObj);
                 return returnObj;
             case BuildingEnum.GreenBuilding:
-                temp = new GreenBuilding(mousePosition, out returnObj);
+                temp = new GreenBuilding(pos, out returnObj);
                 return returnObj;
             case BuildingEnum.YellowBuilding:
-                temp = new YellowBuilding(mousePosition, out returnObj);
+                temp = new YellowBuilding(pos, out returnObj);
                 return returnObj;
             default:
                 return new GameObject();

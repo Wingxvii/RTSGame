@@ -108,6 +108,8 @@ MonoBehaviour:
   halo: {fileID: 0}
   level: 1
   id: 0
+  type: 2
+  deletable: 1
 --- !u!65 &3668032507516641560
 BoxCollider:
   m_ObjectHideFlags: 0

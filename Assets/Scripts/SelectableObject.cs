@@ -8,6 +8,8 @@ public class SelectableObject : MonoBehaviour
     public Behaviour halo;
     public int level = 1;
     public int id;
+    public BuildingEnum type;
+    public bool deletable = true;
 
     // Start is called before the first frame update
     void Start()
