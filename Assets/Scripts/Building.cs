@@ -12,6 +12,7 @@ public enum BuildingEnum
     None,
 }
 
+
 public abstract class Building
 {
     //creates and sets an id for each building
@@ -26,36 +27,40 @@ public abstract class Building
 
 public class RedBuilding : Building
 {
-    public RedBuilding(Vector3 pos) : base()
+    public RedBuilding(Vector3 pos, out GameObject pointer) : base()
     {
-        self = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Red", typeof(GameObject)), pos, Quaternion.identity);
+        self = GameObject.Instantiate(CommandPattern.Instance.redFab, pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
+        pointer = self;
     }
 }
 
 public class BlueBuilding : Building
 {
-    public BlueBuilding(Vector3 pos) : base()
+    public BlueBuilding(Vector3 pos, out GameObject pointer) : base()
     {
-        self = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Blue", typeof(GameObject)),pos, Quaternion.identity);
+        self = GameObject.Instantiate(CommandPattern.Instance.blueFab, pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
+        pointer = self;
     }
 }
 
 public class GreenBuilding : Building
 {
-    public GreenBuilding(Vector3 pos) : base()
+    public GreenBuilding(Vector3 pos, out GameObject pointer) : base()
     {
-        self = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Green", typeof(GameObject)),pos, Quaternion.identity);
+        self = GameObject.Instantiate(CommandPattern.Instance.greenFab, pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
+        pointer = self;
     }
 }
 
 public class YellowBuilding : Building
 {
-    public YellowBuilding(Vector3 pos) : base()
+    public YellowBuilding(Vector3 pos, out GameObject pointer) : base()
     {
-        self = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Yellow", typeof(GameObject)),pos, Quaternion.identity);
+        self = GameObject.Instantiate(CommandPattern.Instance.yellowFab, pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
+        pointer = self;
     }
 }

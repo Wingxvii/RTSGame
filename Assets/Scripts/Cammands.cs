@@ -14,6 +14,36 @@ public enum BuildingActions
     Delete,
 }
 
+class AddCommand : ICommand
+{
+    private GameObject buildingElement;
+    bool done = false;
+
+    public AddCommand(GameObject building)
+    {
+        buildingElement = building;
+        ExecuteAction();
+    }
+
+    public void ExecuteAction()
+    {
+        buildingElement.SetActive(true);
+        done = true;
+    }
+    public void UnExecuteAction()
+    {
+        buildingElement.SetActive(false);
+        done = false;
+    }
+    public void Cleanup()
+    {
+        if (!done)
+        {
+            Object.Destroy(buildingElement);
+        }
+    }
+}
+
 class UpgradeCommand : ICommand
 {
     private GameObject buildingElement;
@@ -75,7 +105,7 @@ class DeleteCommand : ICommand
     }
     public void Cleanup()
     {
-        if (!done) {
+        if (done) {
             Object.Destroy(buildingElement);
         }
     }

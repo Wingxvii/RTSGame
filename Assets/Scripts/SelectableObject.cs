@@ -18,7 +18,8 @@ public class SelectableObject : MonoBehaviour
 
     public void OnSelect()
     {
-        halo.enabled = true;
+        Debug.Log("Selected");
+        if (halo != null) { halo.enabled = true; }
     }
     public void OnDeselect()
     {

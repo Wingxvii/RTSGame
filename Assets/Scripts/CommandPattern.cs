@@ -21,6 +21,7 @@ public class CommandPattern : MonoBehaviour
     #endregion
 
     public GameObject prefabObject;
+    public BuildingEnum prefabType;
 
     public GameObject redFab;
     public GameObject blueFab;
@@ -33,7 +34,7 @@ public class CommandPattern : MonoBehaviour
     private Stack<ICommand> _Redocommands = new Stack<ICommand>();
 
     #region UndoRedo
-    void undo()
+    public void undo()
     {
         if (_Undocommands.Count != 0)
         {
@@ -41,7 +42,7 @@ public class CommandPattern : MonoBehaviour
             _Redocommands.Peek().UnExecuteAction();
         }
     }
-    void redo()
+    public void redo()
     {
         if (_Redocommands.Count != 0)
         {
@@ -57,19 +58,26 @@ public class CommandPattern : MonoBehaviour
         switch (prefab) {
             case 1:
                 prefabObject = (GameObject)Instantiate(redFab);
+                prefabType = BuildingEnum.RedBuilding;
                 break;
             case 2:
                 prefabObject = (GameObject)Instantiate(greenFab);
+                prefabType = BuildingEnum.GreenBuilding;
                 break;
             case 3:
                 prefabObject = (GameObject)Instantiate(blueFab);
+                prefabType = BuildingEnum.BlueBuilding;
                 break;
             case 4:
                 prefabObject = (GameObject)Instantiate(yellowFab);
+                prefabType = BuildingEnum.YellowBuilding;
                 break;
 
         }
-        prefabObject.GetComponent<Renderer>().material.color = new Color(prefabObject.GetComponent<Renderer>().material.color.r, prefabObject.GetComponent<Renderer>().material.color.g, prefabObject.GetComponent<Renderer>().material.color.b,0.5f);
+        //define the variable changes required for the prefab
+        prefabObject.layer = 2;
+        prefabObject.GetComponent<BoxCollider>().enabled = false;
+        //prefabObject.GetComponent<SelectableObject>().enabled = false;
         prefabObject.SetActive(true);
     }
 
@@ -84,7 +92,7 @@ public class CommandPattern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (prefabObject.activeSelf) {
+        if (prefabObject != null && prefabObject.activeSelf) {
             prefabObject.GetComponent<Transform>().position = SelectionManager.Instance.mousePosition;
         }
 
@@ -98,6 +106,16 @@ public class CommandPattern : MonoBehaviour
         int result = Mathf.RoundToInt(num / multiple);
 
         return result * multiple;
+    }
+
+    public void OnPlace(GameObject placeObject) {
+        _Undocommands.Push(new AddCommand(placeObject));
+    }
+
+    public void OnDelete() {
+        foreach (GameObject obj in SelectionManager.Instance.SelectedObjects) {
+            _Undocommands.Push(new DeleteCommand(obj));
+        }
     }
 
 }
