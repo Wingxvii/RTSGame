@@ -61,7 +61,9 @@ public class SelectionManager : MonoBehaviour
     {
         #region place prefab
         if (currentEvent == MouseEvent.PrefabBuild && Input.GetMouseButtonDown(0)) {
-            Object.Destroy(CommandPattern.Instance.prefabObject);
+            if (!Input.GetKey(KeyCode.LeftShift)) {
+                Object.Destroy(CommandPattern.Instance.prefabObject);
+            }
             AllObjects.Add(UseFactoryPattern(mousePosition, CommandPattern.Instance.prefabType));           //LOOK HERE
             CommandPattern.Instance.OnPlace(AllObjects[AllObjects.Count - 1]);
         }
@@ -94,6 +96,9 @@ public class SelectionManager : MonoBehaviour
                 }
                 currentEvent = MouseEvent.Nothing;
                 SelectedObjects.Clear();
+            }
+            else if (currentEvent == MouseEvent.PrefabBuild && Input.GetKey(KeyCode.LeftShift)) {
+                //do nothing
             }
             else if (hit.collider != null && hit.transform.gameObject.tag == "SelectableObject")
             {

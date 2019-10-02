@@ -152,6 +152,11 @@ public class CommandPattern : MonoBehaviour
         ClearCommands();
         _Undocommands.Push(new AddCommand(placeObject));
         SelectionManager.Instance.ClearSelection();
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            SelectionManager.Instance.currentEvent = MouseEvent.PrefabBuild;
+        }
     }
 
     public void onUpgrade() {
