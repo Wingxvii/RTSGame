@@ -36,6 +36,7 @@ public class CommandPattern : MonoBehaviour
     #region UndoRedo
     public void undo()
     {
+        SelectionManager.Instance.ClearSelection();
         if (_Undocommands.Count != 0)
         {
             _Redocommands.Push(_Undocommands.Pop());
@@ -44,6 +45,7 @@ public class CommandPattern : MonoBehaviour
     }
     public void redo()
     {
+        SelectionManager.Instance.ClearSelection();
         if (_Redocommands.Count != 0)
         {
             _Undocommands.Push(_Redocommands.Pop());
@@ -92,13 +94,29 @@ public class CommandPattern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (prefabObject != null && prefabObject.activeSelf) {
-            prefabObject.GetComponent<Transform>().position = SelectionManager.Instance.mousePosition;
-        }
 
-        if (Input.GetKey(KeyCode.P)) {
+        #region hotkeys
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Z)) {
+            undo();
+        }
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Y))
+        {
+            redo();
+        }
+        if (Input.GetKey(KeyCode.P))
+        {
             Debug.Break();
         }
+        if (Input.GetKey(KeyCode.Delete))
+        {
+            OnDelete();
+        }
+        #endregion
+
+        if (prefabObject != null && prefabObject.activeSelf) {
+            prefabObject.GetComponent<Transform>().position = new Vector3(SelectionManager.Instance.mousePosition.x, SelectionManager.Instance.mousePosition.y + prefabObject.GetComponent<Transform>().localScale.y/2.0f , SelectionManager.Instance.mousePosition.z);
+        }
+
     }
 
     public float Round(float num, float multiple)
@@ -109,13 +127,25 @@ public class CommandPattern : MonoBehaviour
     }
 
     public void OnPlace(GameObject placeObject) {
+        ClearCommands();
         _Undocommands.Push(new AddCommand(placeObject));
+        SelectionManager.Instance.ClearSelection();
     }
 
     public void OnDelete() {
+        ClearCommands();
         foreach (GameObject obj in SelectionManager.Instance.SelectedObjects) {
             _Undocommands.Push(new DeleteCommand(obj));
         }
+        SelectionManager.Instance.ClearSelection();
+    }
+
+    public void ClearCommands() {
+        foreach (ICommand command in _Redocommands)
+        {
+            command.Cleanup();
+        }
+        _Redocommands.Clear();
     }
 
 }

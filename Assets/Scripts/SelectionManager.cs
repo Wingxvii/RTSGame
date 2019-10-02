@@ -92,11 +92,7 @@ public class SelectionManager : MonoBehaviour
 
                     //deselect everything else if left control is not holded down
                     if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)) {
-                        foreach (GameObject obj in SelectedObjects)
-                        {
-                            obj.GetComponent<SelectableObject>().OnDeselect();
-                        }
-                        SelectedObjects.Clear();
+                    ClearSelection();
                     }
                     SelectedObjects.Add(hit.transform.gameObject);
                     currentEvent = MouseEvent.Selection;
@@ -117,7 +113,11 @@ public class SelectionManager : MonoBehaviour
 
     public void OnPrefabCreation()
     {
+        ClearSelection();
         currentEvent = MouseEvent.PrefabBuild;
+    }
+
+    public void ClearSelection() {
         if (!SelectedObjects.Count.Equals(0))
         {
             foreach (GameObject obj in SelectedObjects)
@@ -126,8 +126,9 @@ public class SelectionManager : MonoBehaviour
             }
             SelectedObjects.Clear();
         }
-    }
+        currentEvent = MouseEvent.Nothing;
 
+    }
 
     //here is the factory
     public GameObject UseFactoryPattern(BuildingEnum type) {

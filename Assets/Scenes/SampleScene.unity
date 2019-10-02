@@ -188,7 +188,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Undo
 --- !u!222 &40799504
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -737,7 +737,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 420437016}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 931451106}
+        m_MethodName: undo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &420437016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,7 +853,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Redo
 --- !u!222 &471898591
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1414,6 +1425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEvent: 0
+  AllObjects: []
   SelectedObjects: []
   mousePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &931451106
@@ -1429,6 +1441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabObject: {fileID: 0}
+  prefabType: 0
   redFab: {fileID: 5508097730102920826, guid: 529508816a634614b898583372ae9b5c, type: 3}
   blueFab: {fileID: 3035892805720437059, guid: 9fec2f3b39fe09f4c9fc611cb06aad21, type: 3}
   greenFab: {fileID: 5243640246768292037, guid: cd8126f404d7ca9439d766667b571fd4,
@@ -1867,7 +1880,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1301897874}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 931451106}
+        m_MethodName: redo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1301897874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1985,7 +2009,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1373365512}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 931451106}
+        m_MethodName: OnDelete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1373365512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2616,7 +2651,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Delete
 --- !u!222 &1987350080
 CanvasRenderer:
   m_ObjectHideFlags: 0
