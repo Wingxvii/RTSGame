@@ -56,6 +56,7 @@ public class CommandPattern : MonoBehaviour
 
     public void OnPrefabSelect(int prefab) {
         SelectionManager.Instance.OnPrefabCreation();
+        Object.Destroy(prefabObject);
 
         switch (prefab) {
             case 1:
@@ -115,6 +116,23 @@ public class CommandPattern : MonoBehaviour
         {
             onUpgrade();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            OnPrefabSelect(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            OnPrefabSelect(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            OnPrefabSelect(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            OnPrefabSelect(4);
+        }
+
         #endregion
 
         if (prefabObject != null && prefabObject.activeSelf) {

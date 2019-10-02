@@ -85,29 +85,39 @@ public class SelectionManager : MonoBehaviour
         //selection checking
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-                //Debug.Log(hit.transform.gameObject.name);
+            //Debug.Log(hit.transform.gameObject.name);
 
-                if (hit.transform.gameObject.tag == "SelectableObject")
+            if (hit.collider == null) {
+                foreach (GameObject obj in SelectedObjects)
                 {
-
-                    //deselect everything else if left control is not holded down
-                    if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)) {
-                    ClearSelection();
-                    }
-                    SelectedObjects.Add(hit.transform.gameObject);
-                    currentEvent = MouseEvent.Selection;
-                    hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+                    obj.GetComponent<SelectableObject>().OnDeselect();
                 }
-                //deselect on ground hit
-                else if (hit.transform.gameObject.tag == "Ground") {
-                    foreach (GameObject obj in SelectedObjects)
-                    {
-                        obj.GetComponent<SelectableObject>().OnDeselect();
-                    }
-                    currentEvent = MouseEvent.Nothing;
-                    SelectedObjects.Clear();
-                }
+                currentEvent = MouseEvent.Nothing;
+                SelectedObjects.Clear();
             }
+            else if (hit.collider != null && hit.transform.gameObject.tag == "SelectableObject")
+            {
+
+                //deselect everything else if left control is not holded down
+                if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
+                {
+                    ClearSelection();
+                }
+                SelectedObjects.Add(hit.transform.gameObject);
+                currentEvent = MouseEvent.Selection;
+                hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+            }
+            //deselect on ground hit
+            else if (hit.collider != null && hit.transform.gameObject.tag == "Ground")
+            {
+                foreach (GameObject obj in SelectedObjects)
+                {
+                    obj.GetComponent<SelectableObject>().OnDeselect();
+                }
+                currentEvent = MouseEvent.Nothing;
+                SelectedObjects.Clear();
+            }
+        }
         #endregion
     }
 
