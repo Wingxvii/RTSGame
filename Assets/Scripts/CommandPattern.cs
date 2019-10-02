@@ -163,7 +163,13 @@ public class CommandPattern : MonoBehaviour
         ClearCommands();
         foreach (GameObject obj in SelectionManager.Instance.SelectedObjects)
         {
-            _Undocommands.Push(new UpgradeCommand(obj));
+            if (obj.GetComponent<SelectableObject>().level < 5)
+            {
+                _Undocommands.Push(new UpgradeCommand(obj));
+            }
+            else {
+                Debug.Log("Object is already at Max Level");
+            }
         }
     }
 
