@@ -1,0 +1,51 @@
+﻿  MapLoader.cpp
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(20,51): warning C4251:  'MapLoader::filepath': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'MapLoader'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22,25): warning C4251:  'MapLoader::type': class 'std::vector<float,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'MapLoader'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22,25): warning C4251:         with
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22,25): warning C4251:         [
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22,25): warning C4251:             _Ty=float
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22,25): warning C4251:         ]
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :  see declaration of 'std::vector<float,std::allocator<_Ty>>'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         with
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         [
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :             _Ty=float
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         ]
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(23,22): warning C4251:  'MapLoader::x': class 'std::vector<float,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'MapLoader'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(23,22): warning C4251:         with
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(23,22): warning C4251:         [
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(23,22): warning C4251:             _Ty=float
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(23,22): warning C4251:         ]
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :  see declaration of 'std::vector<float,std::allocator<_Ty>>'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         with
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         [
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :             _Ty=float
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         ]
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(24,22): warning C4251:  'MapLoader::y': class 'std::vector<float,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'MapLoader'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(24,22): warning C4251:         with
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(24,22): warning C4251:         [
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(24,22): warning C4251:             _Ty=float
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(24,22): warning C4251:         ]
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :  see declaration of 'std::vector<float,std::allocator<_Ty>>'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         with
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         [
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :             _Ty=float
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         ]
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(25,22): warning C4251:  'MapLoader::z': class 'std::vector<float,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'MapLoader'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(25,22): warning C4251:         with
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(25,22): warning C4251:         [
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(25,22): warning C4251:             _Ty=float
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(25,22): warning C4251:         ]
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :  see declaration of 'std::vector<float,std::allocator<_Ty>>'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         with
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         [
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :             _Ty=float
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(22): message :         ]
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.cpp(42,20): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+     Creating library C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\x64\Release\MapLoader.lib and object C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\x64\Release\MapLoader.exp
+  Generating code
+  3 of 328 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  MapLoader.vcxproj -> C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\x64\Release\MapLoader.dll

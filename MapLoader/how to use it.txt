@@ -1,0 +1,7 @@
+saveMap saves the map
+
+when you want to load the map
+- first loadMap is called
+- then call getObjectAmount so you know how many times to iterate through the vectors that store the position and type data
+- getType gets you the object type
+- getX,Y,Z give you the x,y,z cords of the objects

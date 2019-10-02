@@ -1,0 +1,9 @@
+﻿  MapLoader.cpp
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(15,51): warning C4251:  'MapLoader::filepath': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'MapLoader'
+  Wrapper.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\MapLoader\MapLoader.h(15,51): warning C4251:  'MapLoader::filepath': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'MapLoader'
+  Generating Code...
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+     Creating library C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\Debug\MapLoader.lib and object C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\Debug\MapLoader.exp
+  MapLoader.vcxproj -> C:\Users\Boris\Documents\Repo\Game Engine Design\Group Assignment 1\RTSGame\MapLoader\Debug\MapLoader.dll
