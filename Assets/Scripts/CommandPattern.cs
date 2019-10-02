@@ -103,13 +103,17 @@ public class CommandPattern : MonoBehaviour
         {
             redo();
         }
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Break();
         }
-        if (Input.GetKey(KeyCode.Delete))
+        if (Input.GetKeyDown(KeyCode.Delete))
         {
             OnDelete();
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            onUpgrade();
         }
         #endregion
 
@@ -130,6 +134,14 @@ public class CommandPattern : MonoBehaviour
         ClearCommands();
         _Undocommands.Push(new AddCommand(placeObject));
         SelectionManager.Instance.ClearSelection();
+    }
+
+    public void onUpgrade() {
+        ClearCommands();
+        foreach (GameObject obj in SelectionManager.Instance.SelectedObjects)
+        {
+            _Undocommands.Push(new UpgradeCommand(obj));
+        }
     }
 
     public void OnDelete() {

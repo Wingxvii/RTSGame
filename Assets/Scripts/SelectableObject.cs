@@ -26,5 +26,4 @@ public class SelectableObject : MonoBehaviour
         Debug.Log("Deselected");
         halo.enabled = false;
     }
-
 }
