@@ -18,6 +18,7 @@ public enum MouseEvent {
 //SaveManager.Instacne.SaveToFile(fileData);
 
 
+
 public class SelectionManager : MonoBehaviour
 {
     #region SingletonCode
@@ -37,12 +38,19 @@ public class SelectionManager : MonoBehaviour
     //single pattern ends here
     #endregion  
 
+    public Vector2 boxStart;
+    public Vector2 boxEnd;
+
+    public GameObject player;
+    public bool boxActive = false;
+
+    public Texture selectionBox;
+
     //mouse selection
     public MouseEvent currentEvent = MouseEvent.Nothing;
 
     //list of all objects
     public List<GameObject> AllObjects;
-
     //list of all selected objects
     public List<GameObject> SelectedObjects;
 
@@ -54,18 +62,74 @@ public class SelectionManager : MonoBehaviour
     {
         cam = Camera.main;
         SelectedObjects = new List<GameObject>();
+        AllObjects.Add(player);
     }
 
     // Update is called once per frame
     void Update()
     {
+        #region selection box
+        if (boxActive && currentEvent == MouseEvent.PrefabBuild) {
+            boxActive = false;
+            boxStart = Vector2.zero;
+            boxEnd = Vector2.zero;
+        }
+
+        if (Input.GetMouseButtonDown(0) && boxActive == false && currentEvent != MouseEvent.PrefabBuild)
+        {
+            boxStart = Input.mousePosition;
+            boxActive = true;
+        }
+        else if (Input.GetMouseButton(0) && boxActive)
+        {
+            if (Mathf.Abs(boxStart.x - Input.mousePosition.x) > 15 || Mathf.Abs(boxStart.y - Input.mousePosition.y) > 15)
+            {
+                boxEnd = Input.mousePosition;
+            }
+            else
+            {
+                boxEnd = Vector2.zero;
+            }
+        }
+        if (Input.GetMouseButtonUp(0) && boxActive && boxStart.x != boxEnd.x)
+        {
+            Vector3 worldSelection1;
+
+            Ray rayCast = Camera.main.ScreenPointToRay(boxStart);
+            RaycastHit castHit;
+            if (Physics.Raycast(rayCast, out castHit, 100))
+            {
+                worldSelection1 = castHit.point;
+
+                foreach (GameObject obj in AllObjects)
+                {
+                    if (obj.GetComponent<Transform>().position.x >= Mathf.Min(worldSelection1.x, mousePosition.x) &&
+                        obj.GetComponent<Transform>().position.x <= Mathf.Max(worldSelection1.x, mousePosition.x) &&
+                        obj.GetComponent<Transform>().position.z >= Mathf.Min(worldSelection1.z, mousePosition.z) &&
+                        obj.GetComponent<Transform>().position.x <= Mathf.Max(worldSelection1.z, mousePosition.z) && !SelectedObjects.Contains(obj))
+                    {
+
+                        SelectedObjects.Add(obj);
+                        currentEvent = MouseEvent.Selection;
+                        obj.GetComponent<SelectableObject>().OnSelect();
+
+                    }
+                }
+            }
+
+            boxStart = Vector2.zero;
+            boxEnd = Vector2.zero;
+            boxActive = false;
+        }
+        #endregion
+
+
         #region place prefab
         if (currentEvent == MouseEvent.PrefabBuild && Input.GetMouseButtonDown(0)) {
             if (!Input.GetKey(KeyCode.LeftShift)) {
                 Object.Destroy(CommandPattern.Instance.prefabObject);
             }
-            AllObjects.Add(UseFactoryPattern(mousePosition, CommandPattern.Instance.prefabType));           //LOOK HERE
-            CommandPattern.Instance.OnPlace(AllObjects[AllObjects.Count - 1]);
+            CommandPattern.Instance.OnPlace(UseFactoryPattern(mousePosition, CommandPattern.Instance.prefabType));
         }
 
         #endregion
@@ -102,7 +166,6 @@ public class SelectionManager : MonoBehaviour
             }
             else if (hit.collider != null && hit.transform.gameObject.tag == "SelectableObject")
             {
-
                 //deselect everything else if left control is not holded down
                 if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
                 {
@@ -124,6 +187,8 @@ public class SelectionManager : MonoBehaviour
             }
         }
         #endregion
+
+
     }
 
     public void OnPrefabCreation()
@@ -142,7 +207,9 @@ public class SelectionManager : MonoBehaviour
             SelectedObjects.Clear();
         }
         currentEvent = MouseEvent.Nothing;
-
+        boxStart = Vector2.zero;
+        boxEnd = Vector2.zero;
+        boxActive = false;
     }
 
     //here is the factory
@@ -168,6 +235,12 @@ public class SelectionManager : MonoBehaviour
                 return new GameObject();
 
         }
-        
+    }
+
+    private void OnGUI()
+    {
+        if (boxStart != Vector2.zero && boxEnd != Vector2.zero) {
+            GUI.DrawTexture(new Rect(boxStart.x, Screen.height - boxStart.y, boxEnd.x - boxStart.x, -1 * ((Screen.height - boxStart.y) - (Screen.height - boxEnd.y))), selectionBox);
+        }
     }
 }
