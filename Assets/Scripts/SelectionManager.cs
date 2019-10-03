@@ -43,7 +43,6 @@ public class SelectionManager : MonoBehaviour
 
     public GameObject player;
     public bool boxActive = false;
-
     public Texture selectionBox;
 
     //mouse selection
@@ -68,7 +67,6 @@ public class SelectionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
 
         #region selection box
         if (boxActive && currentEvent == MouseEvent.PrefabBuild) {
@@ -126,16 +124,6 @@ public class SelectionManager : MonoBehaviour
         #endregion
 
 
-        #region place prefab
-        if (currentEvent == MouseEvent.PrefabBuild && Input.GetMouseButtonDown(0)) {
-            if (!Input.GetKey(KeyCode.LeftShift)) {
-                Object.Destroy(CommandPattern.Instance.prefabObject);
-            }
-            CommandPattern.Instance.OnPlace(UseFactoryPattern(mousePosition, CommandPattern.Instance.prefabType));
-        }
-
-        #endregion
-
         #region update mouse
         //update mouse position on screen
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -149,46 +137,70 @@ public class SelectionManager : MonoBehaviour
 
         #endregion
 
-        #region selection
-        //selection checking
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        #region place prefab
+        if (currentEvent == MouseEvent.PrefabBuild && Input.GetMouseButtonDown(0))
         {
-            //Debug.Log(hit.transform.gameObject.name);
-
-            if (hit.collider == null) {
-                foreach (GameObject obj in SelectedObjects)
-                {
-                    obj.GetComponent<SelectableObject>().OnDeselect();
-                }
-                currentEvent = MouseEvent.Nothing;
-                SelectedObjects.Clear();
-            }
-            else if (currentEvent == MouseEvent.PrefabBuild && Input.GetKey(KeyCode.LeftShift)) {
-                //do nothing
-            }
-            else if (hit.collider != null && hit.transform.gameObject.tag == "SelectableObject")
+            if (!Input.GetKey(KeyCode.LeftShift))
             {
-                //deselect everything else if left control is not holded down
-                if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
-                {
-                    ClearSelection();
-                }
-                SelectedObjects.Add(hit.transform.gameObject);
-                currentEvent = MouseEvent.Selection;
-                hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+                Object.Destroy(CommandPattern.Instance.prefabObject);
+                ClearSelection();
             }
-            //deselect on ground hit
-            else if (hit.collider != null && hit.transform.gameObject.tag == "Ground")
-            {
-                foreach (GameObject obj in SelectedObjects)
-                {
-                    obj.GetComponent<SelectableObject>().OnDeselect();
-                }
-                currentEvent = MouseEvent.Nothing;
-                SelectedObjects.Clear();
-            }
+            CommandPattern.Instance.OnPlace(UseFactoryPattern(mousePosition, CommandPattern.Instance.prefabType));
         }
+        else {
+
+            #region selection
+            //selection checking
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                //Debug.Log(hit.transform.gameObject.name);
+
+                if (hit.collider == null)
+                {
+                    foreach (GameObject obj in SelectedObjects)
+                    {
+                        obj.GetComponent<SelectableObject>().OnDeselect();
+                    }
+                    SelectedObjects.Clear();
+                }
+                else if (currentEvent == MouseEvent.PrefabBuild && Input.GetKey(KeyCode.LeftShift))
+                {
+                    //do nothing
+                }
+                else if (hit.collider != null && hit.transform.gameObject.tag == "SelectableObject")
+                {
+                    //deselect everything else if left control is not holded down
+                    if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
+                    {
+                        ClearSelection();
+                    }
+                    SelectedObjects.Add(hit.transform.gameObject);
+                    currentEvent = MouseEvent.Selection;
+                    hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+                }
+                //deselect on ground hit
+                else if (hit.collider != null && hit.transform.gameObject.tag == "Ground")
+                {
+                    foreach (GameObject obj in SelectedObjects)
+                    {
+                        obj.GetComponent<SelectableObject>().OnDeselect();
+                    }
+                    currentEvent = MouseEvent.Nothing;
+                    SelectedObjects.Clear();
+                }
+            }
+            else if (currentEvent == MouseEvent.PrefabBuild && Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                Object.Destroy(CommandPattern.Instance.prefabObject);
+                ClearSelection();
+            }
+            #endregion
+
+        }
+
         #endregion
+
+
 
 
     }
