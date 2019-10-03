@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8879087292186660009}
   - component: {fileID: 8941843676656745788}
   - component: {fileID: 8399991605786059400}
-  - component: {fileID: 3668032507516641560}
   - component: {fileID: 7308890957845704404}
   m_Layer: 0
   m_Name: Green
@@ -111,19 +110,6 @@ MonoBehaviour:
   id: 0
   type: 2
   deletable: 1
---- !u!65 &3668032507516641560
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5243640246768292037}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!64 &7308890957845704404
 MeshCollider:
   m_ObjectHideFlags: 0

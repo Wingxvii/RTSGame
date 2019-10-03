@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1415050088120583538}
   - component: {fileID: 3731368387600513932}
   - component: {fileID: 3326062046626611112}
-  - component: {fileID: -3669843339596517317}
   - component: {fileID: 9149880214096162882}
   m_Layer: 0
   m_Name: Red
@@ -111,19 +110,6 @@ MonoBehaviour:
   id: 0
   type: 0
   deletable: 1
---- !u!65 &-3669843339596517317
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5508097730102920826}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!64 &9149880214096162882
 MeshCollider:
   m_ObjectHideFlags: 0
