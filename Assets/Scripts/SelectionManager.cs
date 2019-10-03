@@ -68,6 +68,8 @@ public class SelectionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         #region selection box
         if (boxActive && currentEvent == MouseEvent.PrefabBuild) {
             boxActive = false;
@@ -91,13 +93,13 @@ public class SelectionManager : MonoBehaviour
                 boxEnd = Vector2.zero;
             }
         }
-        if (Input.GetMouseButtonUp(0) && boxActive && boxStart.x != boxEnd.x)
+        if (Input.GetMouseButtonUp(0) && boxActive)
         {
             Vector3 worldSelection1;
 
             Ray rayCast = Camera.main.ScreenPointToRay(boxStart);
             RaycastHit castHit;
-            if (Physics.Raycast(rayCast, out castHit, 100))
+            if (Physics.Raycast(rayCast, out castHit, 500))
             {
                 worldSelection1 = castHit.point;
 
@@ -106,9 +108,9 @@ public class SelectionManager : MonoBehaviour
                     if (obj.GetComponent<Transform>().position.x >= Mathf.Min(worldSelection1.x, mousePosition.x) &&
                         obj.GetComponent<Transform>().position.x <= Mathf.Max(worldSelection1.x, mousePosition.x) &&
                         obj.GetComponent<Transform>().position.z >= Mathf.Min(worldSelection1.z, mousePosition.z) &&
-                        obj.GetComponent<Transform>().position.x <= Mathf.Max(worldSelection1.z, mousePosition.z) && !SelectedObjects.Contains(obj))
+                        obj.GetComponent<Transform>().position.z <= Mathf.Max(worldSelection1.z, mousePosition.z) && !SelectedObjects.Contains(obj))
                     {
-
+                        Debug.Log(obj.name);
                         SelectedObjects.Add(obj);
                         currentEvent = MouseEvent.Selection;
                         obj.GetComponent<SelectableObject>().OnSelect();
@@ -139,7 +141,7 @@ public class SelectionManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 100) && hit.transform.gameObject.tag != "SelectableObject")
+        if (Physics.Raycast(ray, out hit, 500) && hit.transform.gameObject.tag != "SelectableObject")
         {
             mousePosition = hit.point;
             //mousePosition = new Vector3(hit.point.x, 2, hit.point.z);
