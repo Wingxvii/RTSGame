@@ -28,11 +28,13 @@ class AddCommand : ICommand
     public void ExecuteAction()
     {
         buildingElement.SetActive(true);
+        SelectionManager.Instance.AllObjects.Add(buildingElement);
         done = true;
     }
     public void UnExecuteAction()
     {
         buildingElement.SetActive(false);
+        SelectionManager.Instance.AllObjects.Remove(buildingElement);
         done = false;
     }
     public void Cleanup()
@@ -96,11 +98,13 @@ class DeleteCommand : ICommand
     public void ExecuteAction()
     {
         buildingElement.SetActive(false);
+        SelectionManager.Instance.AllObjects.Remove(buildingElement);
         done = true;
     }
     public void UnExecuteAction()
     {
         buildingElement.SetActive(true);
+        SelectionManager.Instance.AllObjects.Add(buildingElement);
         done = false;
     }
     public void Cleanup()

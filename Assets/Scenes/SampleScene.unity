@@ -819,8 +819,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528026294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 2.82, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1004,6 +1004,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af62daf4900c034db60b5b309d56962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxStart: {x: 0, y: 0}
+  boxEnd: {x: 0, y: 0}
+  player: {fileID: 528026294}
+  boxActive: 0
+  selectionBox: {fileID: 2800000, guid: 9a597a81d661ef44c9e012c08d91d2e6, type: 3}
   currentEvent: 0
   AllObjects: []
   SelectedObjects: []
