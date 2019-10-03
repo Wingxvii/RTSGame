@@ -29,7 +29,7 @@ public class RedBuilding : Building
 {
     public RedBuilding(Vector3 pos, out GameObject pointer) : base()
     {
-        pos = new Vector3(pos.x, pos.y + 2, pos.z);
+        pos = new Vector3(pos.x, pos.y, pos.z);
         self = GameObject.Instantiate(CommandPattern.Instance.redFab, pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
         pointer = self;
@@ -40,7 +40,7 @@ public class BlueBuilding : Building
 {
     public BlueBuilding(Vector3 pos, out GameObject pointer) : base()
     {
-        pos = new Vector3(pos.x, pos.y + 2, pos.z);
+        pos = new Vector3(pos.x, pos.y + 1.33f, pos.z);
         self = GameObject.Instantiate(CommandPattern.Instance.blueFab, pos, Quaternion.identity);
         self.GetComponent<SelectableObject>().id = this.id;
         pointer = self;
