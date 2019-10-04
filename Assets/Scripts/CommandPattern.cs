@@ -229,12 +229,10 @@ public class CommandPattern : MonoBehaviour
     public void SaveMap()
     {
         MapLoader.clearFile();
-        GameObject player = SelectionManager.Instance.player;
-        MapLoader.saveItem(0, player.GetComponent<Transform>().position.x, player.GetComponent<Transform>().position.y, player.GetComponent<Transform>().position.z);
+        Debug.Log("Saving");
         foreach (GameObject obj in SelectionManager.Instance.AllObjects)
         {
             MapLoader.saveItem((int)obj.GetComponent<SelectableObject>().type, obj.GetComponent<Transform>().position.x, obj.GetComponent<Transform>().position.y, obj.GetComponent<Transform>().position.z);
-            Debug.Log("Saving");
         }
     }
 
