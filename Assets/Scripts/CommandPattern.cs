@@ -107,6 +107,10 @@ public class CommandPattern : MonoBehaviour
         {
             Debug.Break();
         }
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Delete))
+        {
+            OnDeleteAll();
+        }
         if (Input.GetKeyDown(KeyCode.Delete))
         {
             OnDelete();
@@ -195,13 +199,13 @@ public class CommandPattern : MonoBehaviour
     public void OnDeleteAll()                                                               //LOOK HERE
     {
         ClearCommands();
+        SelectionManager.Instance.ClearSelection();
+
         foreach (GameObject obj in SelectionManager.Instance.AllObjects)
         {
-            if (obj.GetComponent<SelectableObject>().deletable)
-            {
-                new DeleteCommand(obj);
-            }
+            SelectionManager.Instance.SelectedObjects.Add(obj);
         }
+        OnDelete();
 
         //clear undo commands as well
         foreach (ICommand command in _Undocommands)
@@ -211,8 +215,7 @@ public class CommandPattern : MonoBehaviour
         _Undocommands.Clear();
 
 
-        SelectionManager.Instance.ClearSelection();
-        SelectionManager.Instance.AllObjects.Clear();
+        //SelectionManager.Instance.AllObjects.Clear();
     }
 
     public void ClearCommands() {
