@@ -238,15 +238,19 @@ public class SelectionManager : MonoBehaviour
 
             case BuildingEnum.BlueBuilding:
                 temp = new BlueBuilding(pos, out returnObj);
+                returnObj.GetComponent<SelectableObject>().type = type;
                 return returnObj;
             case BuildingEnum.RedBuilding:
                 temp = new RedBuilding(pos, out returnObj);
+                returnObj.GetComponent<SelectableObject>().type = type;
                 return returnObj;
             case BuildingEnum.GreenBuilding:
                 temp = new GreenBuilding(pos, out returnObj);
+                returnObj.GetComponent<SelectableObject>().type = type;
                 return returnObj;
             case BuildingEnum.YellowBuilding:
                 temp = new YellowBuilding(pos, out returnObj);
+                returnObj.GetComponent<SelectableObject>().type = type;
                 return returnObj;
             default:
                 return new GameObject();

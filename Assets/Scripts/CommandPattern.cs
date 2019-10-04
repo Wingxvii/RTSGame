@@ -32,7 +32,7 @@ public class CommandPattern : MonoBehaviour
     //stack of undo and redo commands
     private Stack<ICommand> _Undocommands = new Stack<ICommand>();
     private Stack<ICommand> _Redocommands = new Stack<ICommand>();
-
+    
     #region UndoRedo
     public void undo()
     {
@@ -95,7 +95,6 @@ public class CommandPattern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         #region hotkeys
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Z)) {
             undo();
@@ -114,7 +113,15 @@ public class CommandPattern : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            onUpgrade();
+            OnUpgrade();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            LoadMap();
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SaveMap();
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -160,7 +167,7 @@ public class CommandPattern : MonoBehaviour
         }
     }
 
-    public void onUpgrade() {
+    public void OnUpgrade() {
         ClearCommands();
         foreach (GameObject obj in SelectionManager.Instance.SelectedObjects)
         {
@@ -216,4 +223,31 @@ public class CommandPattern : MonoBehaviour
         _Redocommands.Clear();
     }
 
+    public void SaveMap()
+    {
+        MapLoader.clearFile();
+        GameObject player = SelectionManager.Instance.player;
+        MapLoader.saveItem(0, player.GetComponent<Transform>().position.x, player.GetComponent<Transform>().position.y, player.GetComponent<Transform>().position.z);
+        foreach (GameObject obj in SelectionManager.Instance.AllObjects)
+        {
+            MapLoader.saveItem((int)obj.GetComponent<SelectableObject>().type, obj.GetComponent<Transform>().position.x, obj.GetComponent<Transform>().position.y, obj.GetComponent<Transform>().position.z);
+            Debug.Log("Saving");
+        }
+    }
+
+    public void LoadMap()
+    {
+        OnDeleteAll();
+        MapLoader.loadMap();
+        Debug.Log("Loading...");
+        int size = MapLoader.getObjectAmount();
+
+        SelectionManager.Instance.player.GetComponent<Transform>().position = new Vector3(MapLoader.getX(0), MapLoader.getY(0), MapLoader.getZ(0));
+        
+        Debug.Log("Loading Buildings...");
+        for(int i = 1; i < size; i++)
+        {
+            OnPlace(SelectionManager.Instance.UseFactoryPattern(new Vector3(MapLoader.getX(i), MapLoader.getY(i), MapLoader.getZ(i)), (BuildingEnum)MapLoader.getType(i)));
+        }
+    }
 }

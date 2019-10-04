@@ -16,10 +16,10 @@ public:
 	}
 
 	void loadMap();
-	void saveItem(float t, float x, float y, float z);
+	void saveItem(int t, float x, float y, float z);
 	void clearFile();
 	int getObjectAmount();
-	float getType(int obj);
+	int getType(int obj);
 	float getX(int obj);
 	float getY(int obj);
 	float getZ(int obj);
@@ -32,7 +32,7 @@ private:
 
 	std::string filepath = "Assets/Resources/map.txt";
 	std::vector<std::string> tokenize(std::string text);
-	std::vector<float> type;
+	std::vector<int> type;
 	std::vector<float> x;
 	std::vector<float> y;
 	std::vector<float> z;
@@ -44,10 +44,10 @@ extern "C"
 #endif
 	// Put your functions here
 	PLUGIN_API void loadMap();
-	PLUGIN_API void saveItem(float t, float x, float y, float z);
+	PLUGIN_API void saveItem(int t, float x, float y, float z);
 	PLUGIN_API void clearFile();
 	PLUGIN_API int getObjectAmount();
-	PLUGIN_API float getType(int obj);
+	PLUGIN_API int getType(int obj);
 	PLUGIN_API float getX(int obj);
 	PLUGIN_API float getY(int obj);
 	PLUGIN_API float getZ(int obj);

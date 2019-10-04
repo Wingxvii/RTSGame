@@ -5,11 +5,11 @@ using UnityEngine;
 //this uses the factory method
 public enum BuildingEnum
 {
+    None,
     RedBuilding,
     BlueBuilding,
     GreenBuilding,
-    YellowBuilding,
-    None,
+    YellowBuilding
 }
 
 
