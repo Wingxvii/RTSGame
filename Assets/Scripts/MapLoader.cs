@@ -21,7 +21,7 @@ public class MapLoader : MonoBehaviour
 
     const string DLL_NAME = "MapLoader";
     [DllImport(DLL_NAME)]
-    public static extern void saveItem(float t, float x, float y, float z);
+    public static extern void saveItem(int t, float x, float y, float z);
 
     [DllImport(DLL_NAME)]
     public static extern void loadMap();

@@ -30,7 +30,7 @@ private:
 
 	};
 
-	std::string filepath = "Assets/Resources/map.txt";
+	std::string filepath = "map.txt";
 	std::vector<std::string> tokenize(std::string text);
 	std::vector<int> type;
 	std::vector<float> x;
