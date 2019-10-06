@@ -143,6 +143,10 @@ public class CommandPattern : MonoBehaviour
         {
             OnPrefabSelect(4);
         }
+        if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit();
+        }
 
         #endregion
 

@@ -839,7 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
   playerBody: {fileID: 0}
-  moveSpeed: 0.2
+  moveSpeed: 1
 --- !u!114 &528026301
 MonoBehaviour:
   m_ObjectHideFlags: 0
