@@ -188,10 +188,10 @@ public class SelectionManager : MonoBehaviour
         {
             if (!Input.GetKey(KeyCode.LeftShift))
             {
-                Object.Destroy(CommandPattern.Instance.prefabObject);
+                Object.Destroy(RTSManager.Instance.prefabObject);
                 ClearSelection();
             }
-            CommandPattern.Instance.OnPlace(UseFactoryPattern(mousePosition, CommandPattern.Instance.prefabType));
+            RTSManager.Instance.OnPlace(UseFactoryPattern(mousePosition, RTSManager.Instance.prefabType));
         }
         else
         {
@@ -234,7 +234,7 @@ public class SelectionManager : MonoBehaviour
             //destroy preset on shift hold up
             else if (currentEvent == MouseEvent.PrefabBuild && Input.GetKeyUp(KeyCode.LeftShift))
             {
-                Object.Destroy(CommandPattern.Instance.prefabObject);
+                Object.Destroy(RTSManager.Instance.prefabObject);
                 ClearSelection();
             }
         }

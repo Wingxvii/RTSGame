@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommandPattern : MonoBehaviour
+public class RTSManager : MonoBehaviour
 {
     #region SingletonCode
-    private static CommandPattern _instance;
-    public static CommandPattern Instance { get { return _instance; } }
+    private static RTSManager _instance;
+    public static RTSManager Instance { get { return _instance; } }
     private void Awake()
     {
         if (_instance != null && _instance != this)
