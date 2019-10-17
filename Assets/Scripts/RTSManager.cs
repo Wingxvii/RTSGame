@@ -21,13 +21,11 @@ public class RTSManager : MonoBehaviour
     #endregion
 
     public GameObject prefabObject;
-    public BuildingEnum prefabType;
+    public EntityType prefabType;
 
-    public GameObject redFab;
-    public GameObject blueFab;
-    public GameObject greenFab;
-    public GameObject yellowFab;
-
+    public GameObject turretPrefab;
+    public GameObject barracksPrefab;
+    public GameObject wallPrefab;
 
     //stack of undo and redo commands
     private Stack<ICommand> _Undocommands = new Stack<ICommand>();
@@ -60,22 +58,17 @@ public class RTSManager : MonoBehaviour
 
         switch (prefab) {
             case 1:
-                prefabObject = (GameObject)Instantiate(redFab);
-                prefabType = BuildingEnum.RedBuilding;
+                prefabObject = (GameObject)Instantiate(turretPrefab);
+                prefabType = EntityType.Turret;
                 break;
             case 2:
-                prefabObject = (GameObject)Instantiate(greenFab);
-                prefabType = BuildingEnum.GreenBuilding;
+                prefabObject = (GameObject)Instantiate(barracksPrefab);
+                prefabType = EntityType.Barracks;
                 break;
             case 3:
-                prefabObject = (GameObject)Instantiate(blueFab);
-                prefabType = BuildingEnum.BlueBuilding;
+                prefabObject = (GameObject)Instantiate(wallPrefab);
+                prefabType = EntityType.Wall;
                 break;
-            case 4:
-                prefabObject = (GameObject)Instantiate(yellowFab);
-                prefabType = BuildingEnum.YellowBuilding;
-                break;
-
         }
         //define the variable changes required for the prefab
         prefabObject.layer = 2;
@@ -88,7 +81,7 @@ public class RTSManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        prefabObject = (GameObject)Instantiate(redFab);
+        prefabObject = (GameObject)Instantiate(turretPrefab);
         prefabObject.SetActive(false);
     }
 
@@ -119,14 +112,6 @@ public class RTSManager : MonoBehaviour
         {
             OnUpgrade();
         }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            LoadMap();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SaveMap();
-        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             OnPrefabSelect(1);
@@ -138,10 +123,6 @@ public class RTSManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             OnPrefabSelect(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            OnPrefabSelect(4);
         }
         if (Input.GetKeyDown("escape"))
         {
@@ -192,7 +173,7 @@ public class RTSManager : MonoBehaviour
     public void OnDelete() {
         ClearCommands();
         foreach (GameObject obj in SelectionManager.Instance.SelectedObjects) {
-            if (obj.GetComponent<SelectableObject>().deletable)
+            if (obj.GetComponent<SelectableObject>().destructable)
             {
                 _Undocommands.Push(new DeleteCommand(obj));
             }
@@ -200,7 +181,7 @@ public class RTSManager : MonoBehaviour
         SelectionManager.Instance.ClearSelection();
     }
 
-    public void OnDeleteAll()                                                               //LOOK HERE
+    public void OnDeleteAll()                                               
     {
         ClearCommands();
         SelectionManager.Instance.ClearSelection();
@@ -230,29 +211,4 @@ public class RTSManager : MonoBehaviour
         _Redocommands.Clear();
     }
 
-    public void SaveMap()
-    {
-        MapLoader.clearFile();
-        Debug.Log("Saving");
-        foreach (GameObject obj in SelectionManager.Instance.AllObjects)
-        {
-            MapLoader.saveItem((int)obj.GetComponent<SelectableObject>().type, obj.GetComponent<Transform>().position.x, obj.GetComponent<Transform>().position.y, obj.GetComponent<Transform>().position.z);
-        }
-    }
-
-    public void LoadMap()
-    {
-        OnDeleteAll();
-        MapLoader.loadMap();
-        Debug.Log("Loading...");
-        int size = MapLoader.getObjectAmount();
-
-        SelectionManager.Instance.player.GetComponent<Transform>().position = new Vector3(MapLoader.getX(0), MapLoader.getY(0), MapLoader.getZ(0));
-        
-        Debug.Log("Loading Buildings...");
-        for(int i = 1; i < size; i++)
-        {
-            OnPlace(SelectionManager.Instance.UseFactoryPattern(new Vector3(MapLoader.getX(i), MapLoader.getY(i), MapLoader.getZ(i)), (BuildingEnum)MapLoader.getType(i)));
-        }
-    }
 }

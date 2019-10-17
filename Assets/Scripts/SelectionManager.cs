@@ -89,28 +89,15 @@ public class SelectionManager : MonoBehaviour
     }
 
     //here is the factory
-    public GameObject UseFactoryPattern(Vector3 pos, BuildingEnum type) {
-
-        GameObject returnObj;
-        Building temp;
+    public GameObject UseFactoryPattern(Vector3 pos, EntityType type) {
         switch (type)
         {
-            case BuildingEnum.BlueBuilding:
-                temp = new BlueBuilding(pos, out returnObj);
-                returnObj.GetComponent<SelectableObject>().type = type;
-                return returnObj;
-            case BuildingEnum.RedBuilding:
-                temp = new RedBuilding(pos, out returnObj);
-                returnObj.GetComponent<SelectableObject>().type = type;
-                return returnObj;
-            case BuildingEnum.GreenBuilding:
-                temp = new GreenBuilding(pos, out returnObj);
-                returnObj.GetComponent<SelectableObject>().type = type;
-                return returnObj;
-            case BuildingEnum.YellowBuilding:
-                temp = new YellowBuilding(pos, out returnObj);
-                returnObj.GetComponent<SelectableObject>().type = type;
-                return returnObj;
+            case EntityType.Turret:
+                return GameObject.Instantiate(RTSManager.Instance.turretPrefab, pos, Quaternion.identity);
+            case EntityType.Barracks:
+                return GameObject.Instantiate(RTSManager.Instance.barracksPrefab, pos, Quaternion.identity);
+            case EntityType.Wall:
+                return GameObject.Instantiate(RTSManager.Instance.wallPrefab, pos, Quaternion.identity);
             default:
                 return new GameObject();
 
