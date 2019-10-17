@@ -213,6 +213,7 @@ RectTransform:
   - {fileID: 1119477722}
   - {fileID: 513177320}
   - {fileID: 1984894059}
+  - {fileID: 1867389513}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -842,7 +843,6 @@ MonoBehaviour:
   id: 0
   type: 0
   destructable: 0
-  self: {fileID: 0}
   playerTransform: {fileID: 0}
   playerBody: {fileID: 0}
   moveSpeed: 1
@@ -960,6 +960,7 @@ GameObject:
   - component: {fileID: 931451104}
   - component: {fileID: 931451105}
   - component: {fileID: 931451106}
+  - component: {fileID: 931451107}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -1022,6 +1023,21 @@ MonoBehaviour:
     type: 3}
   wallPrefab: {fileID: 5312696359181907221, guid: 291c3751be750c543bea7848f2ee38bf,
     type: 3}
+--- !u!114 &931451107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931451103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ccc2caff4b22ae4abdc24385c5fc8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIBuilding: {fileID: 1119477721}
+  UIBarracks: {fileID: 1984894058}
+  UIDroid: {fileID: 1867389512}
 --- !u!1 &977487815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,6 +1958,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647482925}
   m_CullTransparentMesh: 0
+--- !u!1 &1867389512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1867389513}
+  m_Layer: 5
+  m_Name: UI Droid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1867389513
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867389512}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 112027594}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1870701040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2080,7 +2131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1984894059}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: UI Barracks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
