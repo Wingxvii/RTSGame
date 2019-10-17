@@ -20,7 +20,6 @@ public class SelectableObject : MonoBehaviour
     public int id;
     public EntityType type;
     public bool destructable = false;
-    public GameObject self;
     public static int idtracker { get; private set; }
 
     // Start is called before the first frame update
@@ -29,7 +28,6 @@ public class SelectableObject : MonoBehaviour
         halo = (Behaviour)this.GetComponent("Halo");
         halo.enabled = false;
         id = ++idtracker;
-        self = this.gameObject;
 
         //call base function
         BaseStart();

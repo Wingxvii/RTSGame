@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - SelectableObject
+  - GameManager
   layers:
   - Default
   - TransparentFX

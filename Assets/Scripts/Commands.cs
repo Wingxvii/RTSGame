@@ -16,10 +16,10 @@ public enum BuildingActions
 
 class AddCommand : ICommand
 {
-    private GameObject buildingElement;
+    private SelectableObject buildingElement;
     bool done = false;
 
-    public AddCommand(GameObject building)
+    public AddCommand(SelectableObject building)
     {
         buildingElement = building;
         ExecuteAction();
@@ -27,13 +27,13 @@ class AddCommand : ICommand
 
     public void ExecuteAction()
     {
-        buildingElement.SetActive(true);
+        buildingElement.gameObject.SetActive(true);
         SelectionManager.Instance.AllObjects.Add(buildingElement);
         done = true;
     }
     public void UnExecuteAction()
     {
-        buildingElement.SetActive(false);
+        buildingElement.gameObject.SetActive(false);
         SelectionManager.Instance.AllObjects.Remove(buildingElement);
         done = false;
     }
@@ -48,10 +48,10 @@ class AddCommand : ICommand
 
 class UpgradeCommand : ICommand
 {
-    private GameObject buildingElement;
+    private SelectableObject buildingElement;
     bool done = false;
 
-    public UpgradeCommand(GameObject building)
+    public UpgradeCommand(SelectableObject building)
     {
         buildingElement = building;
         ExecuteAction();
@@ -59,7 +59,7 @@ class UpgradeCommand : ICommand
 
     public void ExecuteAction()
     {
-        buildingElement.GetComponent<SelectableObject>().level++;
+        buildingElement.level++;
         Transform objTransf = buildingElement.GetComponent<Transform>();
 
         //make it bigger
@@ -70,7 +70,7 @@ class UpgradeCommand : ICommand
     }
     public void UnExecuteAction()
     {
-        buildingElement.GetComponent<SelectableObject>().level--;
+        buildingElement.level--;
         Transform objTransf = buildingElement.GetComponent<Transform>();
 
         //make it smaller
@@ -86,10 +86,10 @@ class UpgradeCommand : ICommand
 
 class DeleteCommand : ICommand
 {
-    private GameObject buildingElement;
+    private SelectableObject buildingElement;
     bool done = false;
 
-    public DeleteCommand(GameObject building)
+    public DeleteCommand(SelectableObject building)
     {
         buildingElement = building;
         ExecuteAction();
@@ -97,13 +97,13 @@ class DeleteCommand : ICommand
 
     public void ExecuteAction()
     {
-        buildingElement.SetActive(false);
+        buildingElement.gameObject.SetActive(false);
         SelectionManager.Instance.AllObjects.Remove(buildingElement);
         done = true;
     }
     public void UnExecuteAction()
     {
-        buildingElement.SetActive(true);
+        buildingElement.gameObject.SetActive(true);
         SelectionManager.Instance.AllObjects.Add(buildingElement);
         done = false;
     }

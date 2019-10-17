@@ -147,7 +147,7 @@ public class RTSManager : MonoBehaviour
 
     public void OnPlace(GameObject placeObject) {
         ClearCommands();
-        _Undocommands.Push(new AddCommand(placeObject));
+        _Undocommands.Push(new AddCommand(placeObject.GetComponent<SelectableObject>()));
         SelectionManager.Instance.ClearSelection();
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -158,9 +158,9 @@ public class RTSManager : MonoBehaviour
 
     public void OnUpgrade() {
         ClearCommands();
-        foreach (GameObject obj in SelectionManager.Instance.SelectedObjects)
+        foreach (SelectableObject obj in SelectionManager.Instance.SelectedObjects)
         {
-            if (obj.GetComponent<SelectableObject>().level < 5)
+            if (obj.level < 5)
             {
                 _Undocommands.Push(new UpgradeCommand(obj));
             }
@@ -172,8 +172,8 @@ public class RTSManager : MonoBehaviour
 
     public void OnDelete() {
         ClearCommands();
-        foreach (GameObject obj in SelectionManager.Instance.SelectedObjects) {
-            if (obj.GetComponent<SelectableObject>().destructable)
+        foreach (SelectableObject obj in SelectionManager.Instance.SelectedObjects) {
+            if (obj.destructable)
             {
                 _Undocommands.Push(new DeleteCommand(obj));
             }
@@ -186,7 +186,7 @@ public class RTSManager : MonoBehaviour
         ClearCommands();
         SelectionManager.Instance.ClearSelection();
 
-        foreach (GameObject obj in SelectionManager.Instance.AllObjects)
+        foreach (SelectableObject obj in SelectionManager.Instance.AllObjects)
         {
             SelectionManager.Instance.SelectedObjects.Add(obj);
         }

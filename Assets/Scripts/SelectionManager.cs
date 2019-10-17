@@ -40,9 +40,11 @@ public class SelectionManager : MonoBehaviour
     public MouseEvent currentEvent = MouseEvent.Nothing;
 
     //list of all objects
-    public List<GameObject> AllObjects;
+    public List<SelectableObject> AllObjects;
     //list of all selected objects
-    public List<GameObject> SelectedObjects;
+    public List<SelectableObject> SelectedObjects;
+    //primary selected object
+
 
     public Vector3 mousePosition;
 
@@ -51,8 +53,8 @@ public class SelectionManager : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        SelectedObjects = new List<GameObject>();
-        AllObjects.Add(player);
+        SelectedObjects = new List<SelectableObject>();
+        AllObjects.Add(player.GetComponent<SelectableObject>());
     }
 
     // Update is called once per frame
@@ -76,9 +78,9 @@ public class SelectionManager : MonoBehaviour
     {
         if (!SelectedObjects.Count.Equals(0))
         {
-            foreach (GameObject obj in SelectedObjects)
+            foreach (SelectableObject obj in SelectedObjects)
             {
-                obj.GetComponent<SelectableObject>().OnDeselect();
+                obj.OnDeselect();
             }
             SelectedObjects.Clear();
         }
@@ -136,7 +138,7 @@ public class SelectionManager : MonoBehaviour
             {
                 worldSelection1 = castHit.point;
 
-                foreach (GameObject obj in AllObjects)
+                foreach (SelectableObject obj in AllObjects)
                 {
                     if (obj.GetComponent<Transform>().position.x >= Mathf.Min(worldSelection1.x, mousePosition.x) &&
                         obj.GetComponent<Transform>().position.x <= Mathf.Max(worldSelection1.x, mousePosition.x) &&
@@ -190,9 +192,9 @@ public class SelectionManager : MonoBehaviour
 
                 if (hit.collider == null)
                 {
-                    foreach (GameObject obj in SelectedObjects)
+                    foreach (SelectableObject obj in SelectedObjects)
                     {
-                        obj.GetComponent<SelectableObject>().OnDeselect();
+                        obj.OnDeselect();
                     }
                     SelectedObjects.Clear();
                 }
@@ -203,16 +205,16 @@ public class SelectionManager : MonoBehaviour
                     {
                         ClearSelection();
                     }
-                    SelectedObjects.Add(hit.transform.gameObject);
+                    SelectedObjects.Add(hit.transform.gameObject.GetComponent<SelectableObject>());
                     currentEvent = MouseEvent.Selection;
                     hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
                 }
                 //deselect on ground selection, with selection exceptions
                 else if (hit.transform.gameObject.tag == "Ground" && !((currentEvent == MouseEvent.PrefabBuild || (currentEvent == MouseEvent.Selection && boxActive)) && Input.GetKey(KeyCode.LeftShift)))
                 {
-                    foreach (GameObject obj in SelectedObjects)
+                    foreach (SelectableObject obj in SelectedObjects)
                     {
-                        obj.GetComponent<SelectableObject>().OnDeselect();
+                        obj.OnDeselect();
                     }
                     currentEvent = MouseEvent.Nothing;
                     SelectedObjects.Clear();
