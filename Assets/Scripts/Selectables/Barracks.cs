@@ -9,9 +9,14 @@ public class Barracks : SelectableObject
     public Queue<float> buildTimes;
     public float currentBuildTime = 0;
 
+    public Canvas canvas;
+
     //inherited function realizations
     protected override void BaseStart()
     {
+        canvas = GetComponentInChildren<Canvas>();
+        canvas.transform.LookAt(canvas.transform.position + Camera.main.transform.rotation * Vector3.back, Camera.main.transform.rotation * Vector3.up);
+
         buildProcess = GetComponentInChildren<Slider>();
         buildProcess.gameObject.SetActive(false);
 
@@ -19,6 +24,7 @@ public class Barracks : SelectableObject
     }
     protected override void BaseUpdate()
     {
+
         //add to queue
         if (currentBuildTime <= 0 && buildTimes.Count > 0)
         {

@@ -21,6 +21,7 @@ public class SelectableObject : MonoBehaviour
     public EntityType type;
     public bool destructable = false;
     public static int idtracker { get; private set; }
+    public bool selected = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,12 +36,12 @@ public class SelectableObject : MonoBehaviour
 
     public void OnSelect()
     {
-        Debug.Log("Selected");
+        selected = true;
         if (halo != null) { halo.enabled = true; }
     }
     public void OnDeselect()
     {
-        Debug.Log("Deselected");
+        selected = false;
         halo.enabled = false;
     }
 
@@ -76,6 +77,7 @@ public class SelectableObject : MonoBehaviour
     protected virtual void BaseOnDestory() { }
     protected virtual void BaseResetValues() { }
 
+    public virtual void IssueLocation(Vector3 location) { }
     public virtual void OnActivation() { }
     public virtual void OnDeactivation() { }
 

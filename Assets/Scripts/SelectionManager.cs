@@ -49,9 +49,12 @@ public class SelectionManager : MonoBehaviour
     //selected types
     public bool selectedTypeFlag = false;
 
+    //raycasting
     public Vector3 mousePosition;
-
+    private Ray ray;
+    private RaycastHit hit;
     private Camera cam;
+
 
     void Start()
     {
@@ -66,8 +69,18 @@ public class SelectionManager : MonoBehaviour
         //handle selection box first
         HandleSelectionBox();
 
-        //handle left mouse click events last
+        //raycast the mouse
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 500))
+        {
+            mousePosition = hit.point;
+        }
+
+        //handle left mouse click events
         HandleLeftMouseClicks();
+
+        //handle right mouse click events
+        HandleRightMouseClicks();
 
         //handle key press
         HandleKeys();
@@ -206,17 +219,7 @@ public class SelectionManager : MonoBehaviour
     }
 
     private void HandleLeftMouseClicks() {
-        
-        //update mouse position on screen
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(ray, out hit, 500) && hit.transform.gameObject.tag != "SelectableObject")
-        {
-            mousePosition = hit.point;
-            //mousePosition = new Vector3(hit.point.x, 2, hit.point.z);
-        }
-        
+                
         //check if anything needs to be done
         if (currentEvent == MouseEvent.PrefabBuild && Input.GetMouseButtonDown(0))
         {
@@ -284,6 +287,28 @@ public class SelectionManager : MonoBehaviour
                 Object.Destroy(RTSManager.Instance.prefabObject);
                 ClearSelection();
             }
+        }
+    }
+
+    private void HandleRightMouseClicks()
+    {
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            if (currentEvent == MouseEvent.PrefabBuild)
+            {
+                Object.Destroy(RTSManager.Instance.prefabObject);
+                ClearSelection();
+            }
+
+            if (currentEvent == MouseEvent.Selection) {
+                //send the mouse location of all objects with the same type as the primary type
+                foreach (SelectableObject obj in SelectedObjects) {
+                    if (obj.type == PrimarySelectable.type) {
+                        obj.IssueLocation(mousePosition);
+                    }
+                }
+            }
+
         }
     }
 

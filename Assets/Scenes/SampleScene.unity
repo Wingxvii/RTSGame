@@ -1044,6 +1044,7 @@ MonoBehaviour:
   id: 0
   type: 0
   destructable: 0
+  selected: 0
   playerTransform: {fileID: 0}
   playerBody: {fileID: 0}
   moveSpeed: 1
@@ -1309,6 +1310,7 @@ MonoBehaviour:
   AllObjects: []
   SelectedObjects: []
   PrimarySelectable: {fileID: 0}
+  selectedTypeFlag: 0
   mousePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &931451106
 MonoBehaviour:
@@ -1554,7 +1556,7 @@ PrefabInstance:
     - target: {fileID: 5758283557954757989, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 5758283557954757989, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
@@ -1569,7 +1571,7 @@ PrefabInstance:
     - target: {fileID: 5758283557954757989, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70710677
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 5758283557954757989, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
@@ -1579,7 +1581,7 @@ PrefabInstance:
     - target: {fileID: 5758283557954757989, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90.00001
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5758283557954757989, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
@@ -1599,12 +1601,12 @@ PrefabInstance:
     - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
       propertyPath: lastTab
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
       propertyPath: minHeight
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
@@ -1629,7 +1631,12 @@ PrefabInstance:
     - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
       propertyPath: maxHeight
-      value: 60
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: autoHeight
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
