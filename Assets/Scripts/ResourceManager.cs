@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class ResourceConstants {
     public const int SUPPLY_MAX = 100;
@@ -38,6 +39,9 @@ public class ResourceManager : MonoBehaviour
 
     public int numBarracksActive = 0;
 
+    public Text creditText;
+    public Text supplyText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +58,10 @@ public class ResourceManager : MonoBehaviour
         else {
             credits += 1;
         }
+
+        creditText.text = credits.ToString();
+        supplyText.text = supplyCurrent.ToString() + "/" + totalSupply.ToString();
+
     }
 
     public bool Purchase(EntityType type) {

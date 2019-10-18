@@ -109,6 +109,7 @@ public class DroidManager : MonoBehaviour
         ResourceManager.Instance.supplyCurrent--;
         
         Droidpool.Add(droid);
+        droid.gameObject.SetActive(false);
 
         SelectionManager.Instance.AllObjects.Remove(droid);
         ActiveDroidPool.Remove(droid);
