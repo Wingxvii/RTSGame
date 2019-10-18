@@ -8,6 +8,9 @@ public enum MouseEvent
     Nothing = 0,
     Selection = 1,
     PrefabBuild = 2,
+    UnitMove = 3,
+    UnitSelect = 4,
+
 }
 
 public class SelectionManager : MonoBehaviour
@@ -219,73 +222,90 @@ public class SelectionManager : MonoBehaviour
     }
 
     private void HandleLeftMouseClicks() {
-                
-        //check if anything needs to be done
-        if (currentEvent == MouseEvent.PrefabBuild && Input.GetMouseButtonDown(0))
-        {
-            if (!Input.GetKey(KeyCode.LeftShift))
+
+        //check if anything events need to be handled
+        if (Input.GetMouseButtonDown(0)) {
+
+            if (currentEvent == MouseEvent.PrefabBuild)
             {
-                Object.Destroy(RTSManager.Instance.prefabObject);
-                ClearSelection();
+                if (!Input.GetKey(KeyCode.LeftShift))
+                {
+                    Object.Destroy(RTSManager.Instance.prefabObject);
+                    ClearSelection();
+                }
+
+                if (ResourceManager.Instance.Purchase(RTSManager.Instance.prefabObject.GetComponent<SelectableObject>().type))
+                {
+
+                    RTSManager.Instance.OnPlace(UseFactoryPattern(mousePosition, RTSManager.Instance.prefabType));
+                }
+                else
+                {
+                    Debug.Log("NOT ENOUGH CREDITS");
+
+                }
             }
-        
-            if (ResourceManager.Instance.Purchase(RTSManager.Instance.prefabObject.GetComponent<SelectableObject>().type))
-            {
-        
-                RTSManager.Instance.OnPlace(UseFactoryPattern(mousePosition, RTSManager.Instance.prefabType));
+            else if (currentEvent == MouseEvent.UnitMove) {
+                //send the mouse location of all objects with the same type as the primary type
+                foreach (SelectableObject obj in SelectedObjects)
+                {
+                    if (obj.type == PrimarySelectable.type)
+                    {
+                        obj.IssueLocation(mousePosition);
+                    }
+                }
+
+                AnimationManager.Instance.PlayMove(mousePosition);
+                Object.Destroy(RTSManager.Instance.prefabObject);
+                currentEvent = MouseEvent.Selection;
+
             }
             else
             {
-                Debug.Log("NOT ENOUGH CREDITS");
-        
-            }
-        }
-        
-        else
-        {
-        
-            //selection checking
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                //Debug.Log(hit.transform.gameObject.name);
-        
-                if (hit.collider == null)
+
+                //selection checking
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    foreach (SelectableObject obj in SelectedObjects)
+                    //Debug.Log(hit.transform.gameObject.name);
+
+                    if (hit.collider == null)
                     {
-                        obj.OnDeselect();
+                        foreach (SelectableObject obj in SelectedObjects)
+                        {
+                            obj.OnDeselect();
+                        }
+                        SelectedObjects.Clear();
                     }
-                    SelectedObjects.Clear();
+                    else if (hit.transform.gameObject.tag == "SelectableObject")
+                    {
+                        //deselect everything else if left control is not holded down
+                        if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
+                        {
+                            ClearSelection();
+                        }
+                        SelectedObjects.Add(hit.transform.gameObject.GetComponent<SelectableObject>());
+                        SwitchPrimarySelected(hit.transform.gameObject.GetComponent<SelectableObject>());
+
+                        currentEvent = MouseEvent.Selection;
+                        hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+                    }
+                    //deselect on ground selection, with selection exceptions
+                    else if (hit.transform.gameObject.tag == "Ground" && !((currentEvent == MouseEvent.PrefabBuild || (currentEvent == MouseEvent.Selection && boxActive)) && Input.GetKey(KeyCode.LeftShift)))
+                    {
+                        foreach (SelectableObject obj in SelectedObjects)
+                        {
+                            obj.OnDeselect();
+                        }
+                        currentEvent = MouseEvent.Nothing;
+                        SelectedObjects.Clear();
+                    }
                 }
-                else if (hit.transform.gameObject.tag == "SelectableObject")
+                //destroy preset on shift hold up
+                else if (currentEvent == MouseEvent.PrefabBuild && Input.GetKeyUp(KeyCode.LeftShift))
                 {
-                    //deselect everything else if left control is not holded down
-                    if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
-                    {
-                        ClearSelection();
-                    }
-                    SelectedObjects.Add(hit.transform.gameObject.GetComponent<SelectableObject>());
-                    SwitchPrimarySelected(hit.transform.gameObject.GetComponent<SelectableObject>());
-        
-                    currentEvent = MouseEvent.Selection;
-                    hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+                    Object.Destroy(RTSManager.Instance.prefabObject);
+                    ClearSelection();
                 }
-                //deselect on ground selection, with selection exceptions
-                else if (hit.transform.gameObject.tag == "Ground" && !((currentEvent == MouseEvent.PrefabBuild || (currentEvent == MouseEvent.Selection && boxActive)) && Input.GetKey(KeyCode.LeftShift)))
-                {
-                    foreach (SelectableObject obj in SelectedObjects)
-                    {
-                        obj.OnDeselect();
-                    }
-                    currentEvent = MouseEvent.Nothing;
-                    SelectedObjects.Clear();
-                }
-            }
-            //destroy preset on shift hold up
-            else if (currentEvent == MouseEvent.PrefabBuild && Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                Object.Destroy(RTSManager.Instance.prefabObject);
-                ClearSelection();
             }
         }
     }
@@ -294,10 +314,10 @@ public class SelectionManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
-            if (currentEvent == MouseEvent.PrefabBuild)
+            if (currentEvent == MouseEvent.PrefabBuild || currentEvent == MouseEvent.UnitMove)
             {
                 Object.Destroy(RTSManager.Instance.prefabObject);
-                ClearSelection();
+                currentEvent = MouseEvent.Selection;
             }
 
             if (currentEvent == MouseEvent.Selection) {
