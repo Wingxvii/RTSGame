@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8781647209726065249}
   - component: {fileID: 7709805804806494388}
   - component: {fileID: 8539590370312802865}
+  - component: {fileID: 4893369292615047138}
   m_Layer: 0
   m_Name: Droid
   m_TagString: SelectableObject
@@ -113,6 +114,15 @@ MonoBehaviour:
   id: 0
   type: 3
   destructable: 0
+  selected: 0
+  maxSpeed: 10
+  minSpeed: 2
+  state: 0
+  journeyAccuracy: 5
+  attackDamage: 5
+  coolDown: 1
+  currentCoolDown: 0
+  visualRange: 35
 --- !u!54 &7709805804806494388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -141,3 +151,16 @@ Halo:
     serializedVersion: 2
     rgba: 4278251519
   m_Size: 2
+--- !u!135 &4893369292615047138
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037481489312127328}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: -0.09705302, z: -0.007828005}

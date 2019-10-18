@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DroidState {
+    Standing = 0,
+    Moving = 1,
+    AttackMoving = 2,
+    TetherAttacking = 3,
+}
+
 public class Droid : SelectableObject
 {
 
@@ -10,12 +17,27 @@ public class Droid : SelectableObject
     private Rigidbody selfRigid;
 
     private Vector3 journeyPoint;
-    private bool journey = false;
+    private Player attackPoint;
+    public DroidState state = DroidState.Standing;
+
     public float journeyAccuracy = 5.0f;
 
+    public int attackDamage = 5;
+    public float coolDown = 1.0f;
+    public float currentCoolDown = 0.0f;
+
+    public float visualRange = 20.0f;
     protected override void BaseStart()
     {
         selfRigid = this.GetComponent<Rigidbody>();
+    }
+
+    protected override void BaseUpdate()
+    {
+        //tick attack cooldown
+        if (currentCoolDown > 0.0f) {
+            currentCoolDown -= Time.deltaTime;
+        }
     }
 
     //overrided base classes
@@ -25,22 +47,43 @@ public class Droid : SelectableObject
         {
             selfRigid.velocity = selfRigid.velocity.normalized * maxSpeed;
         }
-        /*
-        if (selfRigid.velocity.magnitude < minSpeed)
-        {
-            selfRigid.velocity = Vector3.zero;
-        }
-        */
-        if (journey) {
 
-            if (Vector3.Distance(this.transform.position, journeyPoint) < journeyAccuracy)
-            {
-                journey = false;
-            }
-            else {
+        //AI STATE MACHINE
+        switch (state) {
+            case DroidState.Moving:
+                if (Vector3.Distance(this.transform.position, journeyPoint) < journeyAccuracy)
+                {
+                    state = DroidState.Standing;
+                }
+                else
+                {
+                    MoveTo(new Vector2(journeyPoint.x, journeyPoint.z));
+                }
+                break;
+            case DroidState.TetherAttacking:
+                //check if gameobject is seeable
+                journeyPoint = attackPoint.transform.position;
                 MoveTo(new Vector2(journeyPoint.x, journeyPoint.z));
-            }
+                break;
+            case DroidState.AttackMoving:
+                //check if gameobject is seeable
+                MoveTo(new Vector2(journeyPoint.x, journeyPoint.z));
+                if (Vector3.Distance(DroidManager.Instance.playerTarget.transform.position, this.transform.position) < visualRange)
+                {
+                    state = DroidState.TetherAttacking;
+                    attackPoint = DroidManager.Instance.playerTarget;
+                }
+                break;
+            case DroidState.Standing:
+                if (Vector3.Distance(DroidManager.Instance.playerTarget.transform.position, this.transform.position) < visualRange)
+                {
+                    state = DroidState.TetherAttacking;
+                    attackPoint = DroidManager.Instance.playerTarget;
+                }
+                break;
+
         }
+
     }
 
     public override void OnDeactivation()
@@ -50,11 +93,20 @@ public class Droid : SelectableObject
 
     public override void IssueLocation(Vector3 location)
     {
-        Debug.Log("Issued");
-        journey = true;
+        state = DroidState.Moving;
         journeyPoint = location;
     }
 
+    public void IssueAttack(Vector3 location)
+    {
+        state = DroidState.AttackMoving;
+        journeyPoint = location;
+    }
+    public void IssueAttack(Player attackee)
+    {
+        state = DroidState.TetherAttacking;
+        attackPoint = attackee;
+    }
 
     //unique classes
     public void OnDeath()
@@ -66,6 +118,23 @@ public class Droid : SelectableObject
 
         Vector2 dir = new Vector2(pos.x - this.transform.position.x, pos.y - this.transform.position.z).normalized;
         selfRigid.velocity = new Vector3(dir.x, 0, dir.y) * maxSpeed;
+    }
+    private void OnAttack() {
+        if (currentCoolDown <= 0.0f) {
+            Debug.Log("Arracked");
+            attackPoint.OnDamage(attackDamage);
+            currentCoolDown = coolDown;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "SelectableObject" && other.gameObject.GetComponent<SelectableObject>().type == EntityType.Player)
+        {
+            state = DroidState.TetherAttacking;
+            attackPoint = other.gameObject.GetComponent<Player>();
+            OnAttack();
+        }
     }
 
 }

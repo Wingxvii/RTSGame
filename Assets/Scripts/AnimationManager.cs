@@ -22,10 +22,16 @@ public class AnimationManager : MonoBehaviour
     #endregion  
 
     public Animator Movement;
+    public Animator Attack;
 
     public void PlayMove(Vector3 location) {
         Movement.transform.position = location;
         Movement.Play("IssueMovement");
+    }
+    public void PlayAttack(Vector3 location)
+    {
+        Attack.transform.position = location;
+        Attack.Play("IssueMovement");
     }
 
 }

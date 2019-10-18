@@ -80,5 +80,6 @@ public class SelectableObject : MonoBehaviour
     public virtual void IssueLocation(Vector3 location) { }
     public virtual void OnActivation() { }
     public virtual void OnDeactivation() { }
+    public virtual void OnDamage(int num) { }
 
 }

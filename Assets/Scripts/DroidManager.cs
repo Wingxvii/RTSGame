@@ -33,6 +33,8 @@ public class DroidManager : MonoBehaviour
     public float spawnRange;
     public float spawnHeight;
 
+    public Player playerTarget;
+
     // Start is called before the first frame update
     void Start()
     {

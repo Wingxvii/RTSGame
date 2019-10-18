@@ -28,6 +28,7 @@ public class RTSManager : MonoBehaviour
     public GameObject wallPrefab;
 
     public GameObject moveCursorPrefab;
+    public GameObject attackCursorPrefab;
 
     //stack of undo and redo commands
     private Stack<ICommand> _Undocommands = new Stack<ICommand>();
@@ -249,4 +250,21 @@ public class RTSManager : MonoBehaviour
         SelectionManager.Instance.currentEvent = MouseEvent.UnitMove;
 
     }
+
+    public void OnSelectAttack()
+    {
+
+        Object.Destroy(prefabObject);
+
+        prefabObject = (GameObject)Instantiate(attackCursorPrefab);
+        //define the variable changes required for the prefab
+        prefabObject.layer = 2;
+        //prefabObject.GetComponent<SelectableObject>().enabled = false;
+        prefabObject.SetActive(true);
+
+        SelectionManager.Instance.currentEvent = MouseEvent.UnitAttack;
+
+    }
+
+
 }

@@ -9,7 +9,7 @@ public enum MouseEvent
     Selection = 1,
     PrefabBuild = 2,
     UnitMove = 3,
-    UnitSelect = 4,
+    UnitAttack = 4,
 
 }
 
@@ -172,7 +172,7 @@ public class SelectionManager : MonoBehaviour
                         obj.GetComponent<Transform>().position.z >= Mathf.Min(worldSelection1.z, mousePosition.z) &&
                         obj.GetComponent<Transform>().position.z <= Mathf.Max(worldSelection1.z, mousePosition.z) && !SelectedObjects.Contains(obj))
                     {
-                        Debug.Log(obj.name);
+                        //Debug.Log(obj.name);
                         SelectedObjects.Add(obj);
                         currentEvent = MouseEvent.Selection;
                         obj.GetComponent<SelectableObject>().OnSelect();
@@ -190,6 +190,15 @@ public class SelectionManager : MonoBehaviour
 
     private void HandleKeys()
     {
+
+        //destroy preset on shift hold up
+        if (Input.GetKeyUp(KeyCode.LeftShift) && currentEvent == MouseEvent.PrefabBuild)
+        {
+            Object.Destroy(RTSManager.Instance.prefabObject);
+            ClearSelection();
+        }
+
+
         //handles primary selectable cycling
         if (Input.GetKeyDown(KeyCode.Tab) && PrimarySelectable != null && currentEvent == MouseEvent.Selection) {
             //allows the program to do a full search starting from the flag
@@ -244,6 +253,7 @@ public class SelectionManager : MonoBehaviour
                     Debug.Log("NOT ENOUGH CREDITS");
 
                 }
+
             }
             else if (currentEvent == MouseEvent.UnitMove) {
                 //send the mouse location of all objects with the same type as the primary type
@@ -258,6 +268,54 @@ public class SelectionManager : MonoBehaviour
                 AnimationManager.Instance.PlayMove(mousePosition);
                 Object.Destroy(RTSManager.Instance.prefabObject);
                 currentEvent = MouseEvent.Selection;
+
+            }
+            else if (currentEvent == MouseEvent.UnitAttack)
+            {
+                if (hit.transform.gameObject.tag == "SelectableObject" && hit.transform.GetComponent<SelectableObject>().type == EntityType.Player)
+                {
+                    switch (PrimarySelectable.type)
+                    {
+                        //droids will attack tether to enemy
+                        case EntityType.Droid:
+                            foreach (SelectableObject obj in SelectedObjects)
+                            {
+                                if (obj.type == EntityType.Droid)
+                                {
+                                    Droid temp = (Droid)obj;
+                                    temp.IssueAttack(hit.transform.gameObject.GetComponent<Player>());
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    AnimationManager.Instance.PlayAttack(mousePosition);
+                    Object.Destroy(RTSManager.Instance.prefabObject);
+                    currentEvent = MouseEvent.Selection;
+                }
+                else
+                {
+                    switch (PrimarySelectable.type)
+                    {
+                        //droids will attack tether to enemy
+                        case EntityType.Droid:
+                            foreach (SelectableObject obj in SelectedObjects)
+                            {
+                                if (obj.type == EntityType.Droid)
+                                {
+                                    Droid temp = (Droid)obj;
+                                    temp.IssueAttack(mousePosition);
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    AnimationManager.Instance.PlayAttack(mousePosition);
+                    Object.Destroy(RTSManager.Instance.prefabObject);
+                    currentEvent = MouseEvent.Selection;
+                }
 
             }
             else
@@ -298,16 +356,12 @@ public class SelectionManager : MonoBehaviour
                         }
                         currentEvent = MouseEvent.Nothing;
                         SelectedObjects.Clear();
-                    }
-                }
-                //destroy preset on shift hold up
-                else if (currentEvent == MouseEvent.PrefabBuild && Input.GetKeyUp(KeyCode.LeftShift))
-                {
-                    Object.Destroy(RTSManager.Instance.prefabObject);
-                    ClearSelection();
+                    }                
                 }
             }
         }
+
+
     }
 
     private void HandleRightMouseClicks()
@@ -321,19 +375,47 @@ public class SelectionManager : MonoBehaviour
             }
 
             if (currentEvent == MouseEvent.Selection) {
-                switch (PrimarySelectable.type) {
-                    case EntityType.Droid:
-                        AnimationManager.Instance.PlayMove(mousePosition);
-                        break;
-                    default:
-                        break;
+
+                //check if enemy selected
+                if (hit.transform.gameObject.tag == "SelectableObject" && hit.transform.GetComponent<SelectableObject>().type == EntityType.Player)
+                {
+                    switch (PrimarySelectable.type)
+                    {
+                        //droids will attack tether to enemy
+                        case EntityType.Droid:
+                            foreach (SelectableObject obj in SelectedObjects)
+                            {
+                                if (obj.type == EntityType.Droid)
+                                {
+                                    Droid temp = (Droid)obj;
+                                    temp.IssueAttack(hit.transform.gameObject.GetComponent<Player>());
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    AnimationManager.Instance.PlayAttack(mousePosition);
                 }
+                else
+                {
 
+                    switch (PrimarySelectable.type)
+                    {
+                        case EntityType.Droid:
+                            AnimationManager.Instance.PlayMove(mousePosition);
+                            break;
+                        default:
+                            break;
+                    }
 
-                //send the mouse location of all objects with the same type as the primary type
-                foreach (SelectableObject obj in SelectedObjects) {
-                    if (obj.type == PrimarySelectable.type) {
-                        obj.IssueLocation(mousePosition);
+                    //send the mouse location of all objects with the same type as the primary type
+                    foreach (SelectableObject obj in SelectedObjects)
+                    {
+                        if (obj.type == PrimarySelectable.type)
+                        {
+                            obj.IssueLocation(mousePosition);
+                        }
                     }
                 }
             }

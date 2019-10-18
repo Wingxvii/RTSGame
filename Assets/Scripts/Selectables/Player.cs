@@ -9,6 +9,7 @@ public class Player : SelectableObject
 
     static public Vector3 pos = new Vector3(0, 0, 0);
     public float moveSpeed = 1;
+    public float maxSpeed = 20.0f;
 
     // Start is called before the first frame update
     protected override void BaseStart()
@@ -39,5 +40,15 @@ public class Player : SelectableObject
         {
             playerBody.velocity += new Vector3(0, 0, 1 * -moveSpeed);
         }
+    }
+
+    protected override void BaseFixedUpdate()
+    {
+        if (playerBody.velocity.magnitude > maxSpeed)
+        {
+            playerBody.velocity = playerBody.velocity.normalized * maxSpeed;
+        }
+
+
     }
 }
