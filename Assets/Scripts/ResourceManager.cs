@@ -10,6 +10,8 @@ public static class ResourceConstants {
 
     public const int SUPPLY_PER_BARRACKS = 20;
 
+    public const bool CREDITS_OFF = true;
+
 }
 
 public class ResourceManager : MonoBehaviour
@@ -45,7 +47,13 @@ public class ResourceManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        credits += 1;
+        if (ResourceConstants.CREDITS_OFF)
+        {
+            credits = 99999;
+        }
+        else {
+            credits += 1;
+        }
     }
 
     public bool Purchase(EntityType type) {

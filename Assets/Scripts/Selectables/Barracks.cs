@@ -32,7 +32,7 @@ public class Barracks : SelectableObject
             currentBuildTime -= Time.deltaTime;
             if (currentBuildTime < 0)
             {
-                DroidManager.Instance.QueueFinished(this, EntityType.Droid);
+                DroidManager.Instance.QueueFinished(this.transform, EntityType.Droid);
             }
         }
         //queue ended

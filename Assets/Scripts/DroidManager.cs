@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public enum DroidType {
     Base,
 }
@@ -30,6 +29,9 @@ public class DroidManager : MonoBehaviour
 
     //droid types
     public GameObject DroidPrefab;
+
+    public float spawnRange = 2;
+    public float spawnHeight = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -74,13 +76,16 @@ public class DroidManager : MonoBehaviour
     }
 
     //called when drone is requested to be built
-    public void QueueFinished(Barracks home, EntityType type)
+    public void QueueFinished(Transform home, EntityType type)
     {
         switch (type)
         {
             case EntityType.Droid:
-                //add offser here
-                SpawnDroid(type, new Vector3(home.gameObject.GetComponent<Transform>().position.x + 3, 2, home.gameObject.GetComponent<Transform>().position.z));
+                //add offset here
+                Vector3 pos = new Vector3(Random.Range(-1, 1), spawnHeight, Random.Range(-1, 1));
+                pos = pos.normalized * spawnRange;
+
+                SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
                 break;
             default:
                 Debug.Log("ERROR: DROID TYPE INVALID");
