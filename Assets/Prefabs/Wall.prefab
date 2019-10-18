@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6563314842907342521}
   - component: {fileID: 7163284388120282144}
   - component: {fileID: 4350395218182342090}
-  - component: {fileID: 6924822964337765605}
   - component: {fileID: 6379225051349584404}
+  - component: {fileID: 1705237814873984082}
   m_Layer: 0
   m_Name: Wall
   m_TagString: SelectableObject
@@ -93,24 +93,6 @@ Halo:
     serializedVersion: 2
     rgba: 4278252287
   m_Size: 5
---- !u!114 &6924822964337765605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5312696359181907221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dd31cac823dbc0419b676a206e7110c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  halo: {fileID: 0}
-  level: 1
-  id: 0
-  type: 0
-  destructable: 1
-  self: {fileID: 0}
 --- !u!64 &6379225051349584404
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -125,3 +107,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: -5495902117074765545, guid: 7d7af99e5b6d5e449ab8cb75aaf37319, type: 3}
+--- !u!114 &1705237814873984082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312696359181907221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f911770d3450b034e92d770c2155f562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  halo: {fileID: 0}
+  level: 1
+  id: 0
+  type: 1
+  destructable: 0

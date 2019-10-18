@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4184662110482489706}
   - component: {fileID: 1415050088120583538}
   - component: {fileID: 3731368387600513932}
-  - component: {fileID: 3326062046626611112}
   - component: {fileID: 9149880214096162882}
+  - component: {fileID: 6304387413709053227}
   m_Layer: 0
   m_Name: Turret
   m_TagString: SelectableObject
@@ -93,24 +93,6 @@ Halo:
     serializedVersion: 2
     rgba: 4278251519
   m_Size: 5
---- !u!114 &3326062046626611112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5508097730102920826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dd31cac823dbc0419b676a206e7110c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  halo: {fileID: 0}
-  level: 1
-  id: 0
-  type: 0
-  destructable: 1
-  self: {fileID: 0}
 --- !u!64 &9149880214096162882
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -125,3 +107,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: -2432090755550338912, guid: 2520d57eb9f13b04e9b505c61d18f13b, type: 3}
+--- !u!114 &6304387413709053227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5508097730102920826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff6b35e59198a046bc800605ada96fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  halo: {fileID: 0}
+  level: 1
+  id: 0
+  type: 5
+  destructable: 0

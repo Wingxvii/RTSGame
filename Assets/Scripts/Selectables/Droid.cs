@@ -5,9 +5,6 @@ using UnityEngine;
 public class Droid : SelectableObject
 {
 
-
-
-
     public override void OnDeactivation()
     {
         OnDeath();
