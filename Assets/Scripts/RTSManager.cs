@@ -147,15 +147,7 @@ public class RTSManager : MonoBehaviour
 
     public void OnPlace(GameObject placeObject) {
         ClearCommands();
-        if (ResourceManager.Instance.Purchase(placeObject.GetComponent<SelectableObject>().type))
-        {
-            _Undocommands.Push(new AddCommand(placeObject.GetComponent<SelectableObject>()));
-        }
-        else
-        {
-            Debug.Log("NOT ENOUGH CREDITS");
-
-        }
+        _Undocommands.Push(new AddCommand(placeObject.GetComponent<SelectableObject>()));
 
 
         SelectionManager.Instance.ClearSelection();
@@ -221,19 +213,24 @@ public class RTSManager : MonoBehaviour
     }
 
     public void OnTrainBarracks(int unitType) {
-        if (SelectionManager.Instance.PrimarySelectable.type == EntityType.Barracks)
-        {
-
-            switch (unitType){
-                case 1:
-                    Barracks temp = (Barracks)SelectionManager.Instance.PrimarySelectable;
-                    temp.OnTrainRequest();
-                    break;
-                default:
-                    Debug.Log("ERROR UNIT TYPE MISSING");
-                    break;
+            if (SelectionManager.Instance.PrimarySelectable.type == EntityType.Barracks)
+            {
+            foreach (SelectableObject obj in SelectionManager.Instance.SelectedObjects)
+            {
+                if (obj.type == EntityType.Barracks)
+                {
+                    switch (unitType)
+                    {
+                        case 1:
+                            Barracks temp = (Barracks)obj;
+                            temp.OnTrainRequest();
+                            break;
+                        default:
+                            Debug.Log("ERROR UNIT TYPE MISSING");
+                            break;
+                    }
+                }
             }
         }
     }
-
 }

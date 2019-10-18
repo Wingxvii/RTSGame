@@ -79,7 +79,8 @@ public class DroidManager : MonoBehaviour
         switch (type)
         {
             case EntityType.Droid:
-                SpawnDroid(type, new Vector3(home.gameObject.GetComponent<Transform>().position.x + 8, 2, home.gameObject.GetComponent<Transform>().position.z));
+                //add offser here
+                SpawnDroid(type, new Vector3(home.gameObject.GetComponent<Transform>().position.x + 3, 2, home.gameObject.GetComponent<Transform>().position.z));
                 break;
             default:
                 Debug.Log("ERROR: DROID TYPE INVALID");

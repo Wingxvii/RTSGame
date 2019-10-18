@@ -183,8 +183,19 @@ public class SelectionManager : MonoBehaviour
                 Object.Destroy(RTSManager.Instance.prefabObject);
                 ClearSelection();
             }
-            RTSManager.Instance.OnPlace(UseFactoryPattern(mousePosition, RTSManager.Instance.prefabType));
+
+            if (ResourceManager.Instance.Purchase(RTSManager.Instance.prefabObject.GetComponent<SelectableObject>().type))
+            {
+
+                RTSManager.Instance.OnPlace(UseFactoryPattern(mousePosition, RTSManager.Instance.prefabType));
+            }
+            else
+            {
+                Debug.Log("NOT ENOUGH CREDITS");
+
+            }
         }
+
         else
         {
 

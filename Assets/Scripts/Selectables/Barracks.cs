@@ -7,7 +7,7 @@ public class Barracks : SelectableObject
 {
     public Slider buildProcess;
     public Queue<float> buildTimes;
-    public float currentBuildTime;
+    public float currentBuildTime = 0;
 
     //inherited function realizations
     protected override void BaseStart()
@@ -19,14 +19,25 @@ public class Barracks : SelectableObject
     }
     protected override void BaseUpdate()
     {
-        if (currentBuildTime < 0 && buildTimes.Count > 0)
+        //add to queue
+        if (currentBuildTime <= 0 && buildTimes.Count > 0)
         {
-            DroidManager.Instance.QueueFinished(this, EntityType.Droid);
+            buildProcess.gameObject.SetActive(true);
             currentBuildTime += buildTimes.Dequeue();
         }
-        if (currentBuildTime > 0)
+        //tick queue
+        else if (currentBuildTime > 0)
         {
+            buildProcess.value = currentBuildTime / 5.0f;
             currentBuildTime -= Time.deltaTime;
+            if (currentBuildTime < 0)
+            {
+                DroidManager.Instance.QueueFinished(this, EntityType.Droid);
+            }
+        }
+        //queue ended
+        else if (currentBuildTime <= 0) {
+            buildProcess.gameObject.SetActive(false);
         }
     }
 
