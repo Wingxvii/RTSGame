@@ -39,13 +39,16 @@ public class UIManager : MonoBehaviour
         //use observer for this
         if (SelectionManager.Instance.SelectedObjects.Count > 0)
         {
-            switch (SelectionManager.Instance.SelectedObjects[SelectionManager.Instance.SelectedObjects.Count - 1].GetComponent<SelectableObject>().type)
+            switch (SelectionManager.Instance.PrimarySelectable.type)
             {
                 case EntityType.Barracks:
                     EnableUI(UIBarracks);
                     break;
                 case EntityType.Droid:
                     EnableUI(UIDroid);
+                    break;
+                default:
+                    EnableUI();
                     break;
             }
         }
@@ -54,12 +57,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void EnableUI(GameObject enabledUI) {
+    void EnableUI(GameObject enabledUI = null) {
         UIBuilding.SetActive(false);
         UIBarracks.SetActive(false);
         UIDroid.SetActive(false);
 
-        enabledUI.SetActive(true);
+        if (enabledUI != null)
+        {
+            enabledUI.SetActive(true);
+        }
     }
 
 }

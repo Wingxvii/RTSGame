@@ -30,6 +30,9 @@ public class RTSManager : MonoBehaviour
     //stack of undo and redo commands
     private Stack<ICommand> _Undocommands = new Stack<ICommand>();
     private Stack<ICommand> _Redocommands = new Stack<ICommand>();
+
+    public int credits = 0;
+    public int supply = 0;
     
     #region UndoRedo
     public void undo()
@@ -209,6 +212,13 @@ public class RTSManager : MonoBehaviour
             command.Cleanup();
         }
         _Redocommands.Clear();
+    }
+
+    public void OnTrainBarracks(int unitType) {
+        //switch (unitType){
+        //    case 1:
+
+        //}
     }
 
 }

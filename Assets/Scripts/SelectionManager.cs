@@ -44,7 +44,7 @@ public class SelectionManager : MonoBehaviour
     //list of all selected objects
     public List<SelectableObject> SelectedObjects;
     //primary selected object
-
+    public SelectableObject PrimarySelectable;
 
     public Vector3 mousePosition;
 
@@ -88,6 +88,8 @@ public class SelectionManager : MonoBehaviour
         boxStart = Vector2.zero;
         boxEnd = Vector2.zero;
         boxActive = false;
+
+        SwitchPrimarySelected();
     }
 
     //here is the factory
@@ -152,6 +154,7 @@ public class SelectionManager : MonoBehaviour
 
                     }
                 }
+                SwitchPrimarySelected();
             }
 
             boxStart = Vector2.zero;
@@ -206,6 +209,8 @@ public class SelectionManager : MonoBehaviour
                         ClearSelection();
                     }
                     SelectedObjects.Add(hit.transform.gameObject.GetComponent<SelectableObject>());
+                    SwitchPrimarySelected(hit.transform.gameObject.GetComponent<SelectableObject>());
+
                     currentEvent = MouseEvent.Selection;
                     hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
                 }
@@ -227,6 +232,17 @@ public class SelectionManager : MonoBehaviour
                 ClearSelection();
             }
         }
+    }
+
+    public void SwitchPrimarySelected(SelectableObject primary = null) {
+        if (primary == null && SelectedObjects.Count > 0) {
+            PrimarySelectable = SelectedObjects[SelectedObjects.Count - 1];
+        }
+        else
+        {
+            PrimarySelectable = primary;
+        }
+
     }
 
     private void OnGUI()
