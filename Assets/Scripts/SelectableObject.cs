@@ -76,5 +76,7 @@ public class SelectableObject : MonoBehaviour
     protected virtual void BaseOnDestory() { }
     protected virtual void BaseResetValues() { }
 
+    public virtual void OnActivation() { }
+    public virtual void OnDeactivation() { }
 
 }

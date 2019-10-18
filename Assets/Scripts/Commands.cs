@@ -28,12 +28,14 @@ class AddCommand : ICommand
     public void ExecuteAction()
     {
         buildingElement.gameObject.SetActive(true);
+        buildingElement.OnActivation();
         SelectionManager.Instance.AllObjects.Add(buildingElement);
         done = true;
     }
     public void UnExecuteAction()
     {
         buildingElement.gameObject.SetActive(false);
+        buildingElement.OnDeactivation();
         SelectionManager.Instance.AllObjects.Remove(buildingElement);
         done = false;
     }
@@ -98,12 +100,14 @@ class DeleteCommand : ICommand
     public void ExecuteAction()
     {
         buildingElement.gameObject.SetActive(false);
+        buildingElement.OnDeactivation();
         SelectionManager.Instance.AllObjects.Remove(buildingElement);
         done = true;
     }
     public void UnExecuteAction()
     {
         buildingElement.gameObject.SetActive(true);
+        buildingElement.OnActivation();
         SelectionManager.Instance.AllObjects.Add(buildingElement);
         done = false;
     }

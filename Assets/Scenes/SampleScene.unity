@@ -1235,12 +1235,14 @@ GameObject:
   - component: {fileID: 931451105}
   - component: {fileID: 931451106}
   - component: {fileID: 931451107}
+  - component: {fileID: 931451109}
+  - component: {fileID: 931451108}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &931451104
 Transform:
@@ -1298,8 +1300,6 @@ MonoBehaviour:
     type: 3}
   wallPrefab: {fileID: 5312696359181907221, guid: 291c3751be750c543bea7848f2ee38bf,
     type: 3}
-  credits: 0
-  supply: 0
 --- !u!114 &931451107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1315,6 +1315,38 @@ MonoBehaviour:
   UIBuilding: {fileID: 1119477721}
   UIBarracks: {fileID: 1984894058}
   UIDroid: {fileID: 1867389512}
+--- !u!114 &931451108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931451103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d6d61c4b219b146a0c7dc1196c5bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Droidpool: []
+  ActiveDroidPool: []
+  DroidPrefab: {fileID: 4037481489312127328, guid: 99c52c1ba32796441949096bfb5113f0,
+    type: 3}
+--- !u!114 &931451109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931451103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815e96e268b756541aab6a0591fc3001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  credits: 0
+  totalSupply: 0
+  supplyCurrent: 0
+  numBarracksActive: 0
 --- !u!1 &977487815
 GameObject:
   m_ObjectHideFlags: 0

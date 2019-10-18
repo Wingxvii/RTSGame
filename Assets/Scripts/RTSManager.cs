@@ -30,9 +30,6 @@ public class RTSManager : MonoBehaviour
     //stack of undo and redo commands
     private Stack<ICommand> _Undocommands = new Stack<ICommand>();
     private Stack<ICommand> _Redocommands = new Stack<ICommand>();
-
-    public int credits = 0;
-    public int supply = 0;
     
     #region UndoRedo
     public void undo()
@@ -150,9 +147,18 @@ public class RTSManager : MonoBehaviour
 
     public void OnPlace(GameObject placeObject) {
         ClearCommands();
-        _Undocommands.Push(new AddCommand(placeObject.GetComponent<SelectableObject>()));
-        SelectionManager.Instance.ClearSelection();
+        if (ResourceManager.Instance.Purchase(placeObject.GetComponent<SelectableObject>().type))
+        {
+            _Undocommands.Push(new AddCommand(placeObject.GetComponent<SelectableObject>()));
+        }
+        else
+        {
+            Debug.Log("NOT ENOUGH CREDITS");
 
+        }
+
+
+        SelectionManager.Instance.ClearSelection();
         if (Input.GetKey(KeyCode.LeftShift))
         {
             SelectionManager.Instance.currentEvent = MouseEvent.PrefabBuild;
@@ -215,10 +221,19 @@ public class RTSManager : MonoBehaviour
     }
 
     public void OnTrainBarracks(int unitType) {
-        //switch (unitType){
-        //    case 1:
+        if (SelectionManager.Instance.PrimarySelectable.type == EntityType.Barracks)
+        {
 
-        //}
+            switch (unitType){
+                case 1:
+                    Barracks temp = (Barracks)SelectionManager.Instance.PrimarySelectable;
+                    temp.OnTrainRequest();
+                    break;
+                default:
+                    Debug.Log("ERROR UNIT TYPE MISSING");
+                    break;
+            }
+        }
     }
 
 }
