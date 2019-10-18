@@ -1362,8 +1362,8 @@ MonoBehaviour:
   PoolParent: {fileID: 634751482}
   DroidPrefab: {fileID: 4037481489312127328, guid: 99c52c1ba32796441949096bfb5113f0,
     type: 3}
-  spawnRange: 3
-  spawnHeight: 2
+  spawnRange: 4
+  spawnHeight: 1
 --- !u!114 &931451109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,7 +1544,7 @@ PrefabInstance:
     - target: {fileID: 5758283557954757989, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.04
+      value: 44.12
       objectReference: {fileID: 0}
     - target: {fileID: 5758283557954757989, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
@@ -1595,6 +1595,41 @@ PrefabInstance:
         type: 3}
       propertyPath: targetsTag.Array.data[0]
       value: SelectableObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: lastTab
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: minHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: useKeyboardInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: limitX
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: limitY
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: rotationSped
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947862367, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
+      propertyPath: maxHeight
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}

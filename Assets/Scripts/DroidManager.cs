@@ -30,8 +30,8 @@ public class DroidManager : MonoBehaviour
     //droid types
     public GameObject DroidPrefab;
 
-    public float spawnRange = 2;
-    public float spawnHeight = 2;
+    public float spawnRange;
+    public float spawnHeight;
 
     // Start is called before the first frame update
     void Start()
@@ -82,7 +82,7 @@ public class DroidManager : MonoBehaviour
         {
             case EntityType.Droid:
                 //add offset here
-                Vector3 pos = new Vector3(Random.Range(-1, 1), spawnHeight, Random.Range(-1, 1));
+                Vector3 pos = new Vector3(Random.Range(-1.0f, 1.0f), spawnHeight, Random.Range(-1.0f, 1.0f));
                 pos = pos.normalized * spawnRange;
 
                 SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
@@ -94,9 +94,8 @@ public class DroidManager : MonoBehaviour
     }
 
     public void SpawnDroid(EntityType type, Vector3 pos) {
-
-        Droidpool[Droidpool.Count - 1].gameObject.SetActive(true);
         Droidpool[Droidpool.Count - 1].transform.position = pos;
+        Droidpool[Droidpool.Count - 1].gameObject.SetActive(true);
 
         SelectionManager.Instance.AllObjects.Add(Droidpool[Droidpool.Count - 1]);
         ActiveDroidPool.Add(Droidpool[Droidpool.Count - 1]);

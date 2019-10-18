@@ -46,6 +46,9 @@ public class SelectionManager : MonoBehaviour
     //primary selected object
     public SelectableObject PrimarySelectable;
 
+    //selected types
+    public bool selectedTypeFlag = false;
+
     public Vector3 mousePosition;
 
     private Camera cam;
@@ -63,9 +66,11 @@ public class SelectionManager : MonoBehaviour
         //handle selection box first
         HandleSelectionBox();
 
-        //handle mouse click events last
-        HandleMouseClickEvents();
+        //handle left mouse click events last
+        HandleLeftMouseClicks();
 
+        //handle key press
+        HandleKeys();
     }
 
     public void OnPrefabCreation()
@@ -167,18 +172,51 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    private void HandleMouseClickEvents() {
+    private void HandleKeys()
+    {
+        //handles primary selectable cycling
+        if (Input.GetKeyDown(KeyCode.Tab) && PrimarySelectable != null && currentEvent == MouseEvent.Selection) {
+            //allows the program to do a full search starting from the flag
+            do
+            {
+                foreach (SelectableObject obj in SelectedObjects)
+                {
+                    //this checks for the first item in the next selectable type, then switches the primary to it
+                    if (PrimarySelectable == obj)
+                    {
+                        //checks if this went full circle
+                        if (selectedTypeFlag)
+                        {
+                            selectedTypeFlag = false;
+                            break;
+                        }
+                        //else, set flag to true
+                        selectedTypeFlag = true;
+                    }
+                    //if a different type is found, and flag is active
+                    if (obj.type != PrimarySelectable.type && selectedTypeFlag)
+                    {
+                        selectedTypeFlag = false;
+                        PrimarySelectable = obj;
+                    }
+                }
+            } while (selectedTypeFlag);                 //my first practical use of do-while =D
+        }
 
+    }
+
+    private void HandleLeftMouseClicks() {
+        
         //update mouse position on screen
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
+        
         if (Physics.Raycast(ray, out hit, 500) && hit.transform.gameObject.tag != "SelectableObject")
         {
             mousePosition = hit.point;
             //mousePosition = new Vector3(hit.point.x, 2, hit.point.z);
         }
-
+        
         //check if anything needs to be done
         if (currentEvent == MouseEvent.PrefabBuild && Input.GetMouseButtonDown(0))
         {
@@ -187,27 +225,27 @@ public class SelectionManager : MonoBehaviour
                 Object.Destroy(RTSManager.Instance.prefabObject);
                 ClearSelection();
             }
-
+        
             if (ResourceManager.Instance.Purchase(RTSManager.Instance.prefabObject.GetComponent<SelectableObject>().type))
             {
-
+        
                 RTSManager.Instance.OnPlace(UseFactoryPattern(mousePosition, RTSManager.Instance.prefabType));
             }
             else
             {
                 Debug.Log("NOT ENOUGH CREDITS");
-
+        
             }
         }
-
+        
         else
         {
-
+        
             //selection checking
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 //Debug.Log(hit.transform.gameObject.name);
-
+        
                 if (hit.collider == null)
                 {
                     foreach (SelectableObject obj in SelectedObjects)
@@ -225,7 +263,7 @@ public class SelectionManager : MonoBehaviour
                     }
                     SelectedObjects.Add(hit.transform.gameObject.GetComponent<SelectableObject>());
                     SwitchPrimarySelected(hit.transform.gameObject.GetComponent<SelectableObject>());
-
+        
                     currentEvent = MouseEvent.Selection;
                     hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
                 }

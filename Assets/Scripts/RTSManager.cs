@@ -72,7 +72,7 @@ public class RTSManager : MonoBehaviour
         }
         //define the variable changes required for the prefab
         prefabObject.layer = 2;
-        prefabObject.GetComponent<MeshCollider>().enabled = false;
+        prefabObject.GetComponent<Collider>().enabled = false;
         //prefabObject.GetComponent<SelectableObject>().enabled = false;
         prefabObject.SetActive(true);
     }

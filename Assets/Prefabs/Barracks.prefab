@@ -345,8 +345,8 @@ GameObject:
   - component: {fileID: 7014941616866911789}
   - component: {fileID: 8879087292186660009}
   - component: {fileID: 8941843676656745788}
-  - component: {fileID: 7308890957845704404}
   - component: {fileID: 5664113259941518892}
+  - component: {fileID: 2456052223259665518}
   m_Layer: 0
   m_Name: Barracks
   m_TagString: SelectableObject
@@ -363,7 +363,7 @@ Transform:
   m_GameObject: {fileID: 5243640246768292037}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.44, y: 2, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 8, y: 4, z: 8}
   m_Children:
   - {fileID: 5614229466656179386}
   m_Father: {fileID: 0}
@@ -427,20 +427,6 @@ Halo:
     serializedVersion: 2
     rgba: 4278251519
   m_Size: 5
---- !u!64 &7308890957845704404
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5243640246768292037}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -2432090755550338912, guid: fb8db639db3ef064bb2fdaa46e0609fe, type: 3}
 --- !u!114 &5664113259941518892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +446,20 @@ MonoBehaviour:
   destructable: 1
   buildProcess: {fileID: 0}
   currentBuildTime: 0
+--- !u!136 &2456052223259665518
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243640246768292037}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 0.85156405
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.075782, z: 0}
 --- !u!1 &6689312592140037011
 GameObject:
   m_ObjectHideFlags: 0
