@@ -301,6 +301,15 @@ public class SelectionManager : MonoBehaviour
             }
 
             if (currentEvent == MouseEvent.Selection) {
+                switch (PrimarySelectable.type) {
+                    case EntityType.Droid:
+                        AnimationManager.Instance.PlayMove(mousePosition);
+                        break;
+                    default:
+                        break;
+                }
+
+
                 //send the mouse location of all objects with the same type as the primary type
                 foreach (SelectableObject obj in SelectedObjects) {
                     if (obj.type == PrimarySelectable.type) {
