@@ -15,10 +15,10 @@ public class Wall : SelectableObject
 
     }
 
-
     public void WallIsHit(Vector3 hitPoint) {
         Wallhit.transform.position = hitPoint;
         Wallhit.Play();
     }
+
 
 }

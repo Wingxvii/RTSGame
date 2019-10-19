@@ -370,16 +370,33 @@ public class SelectionManager : MonoBehaviour
                     }
                     else if (hit.transform.gameObject.tag == "SelectableObject")
                     {
-                        //deselect everything else if left control is not holded down
-                        if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
-                        {
-                            ClearSelection();
-                        }
-                        SelectedObjects.Add(hit.transform.gameObject.GetComponent<SelectableObject>());
-                        SwitchPrimarySelected(hit.transform.gameObject.GetComponent<SelectableObject>());
+                        //check to see if already selected
+                        if (SelectedObjects.Contains(hit.transform.GetComponent<SelectableObject>())) {
+                            if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)){
+                                ClearSelection();
+                                SelectedObjects.Add(hit.transform.gameObject.GetComponent<SelectableObject>());
+                                SwitchPrimarySelected(hit.transform.gameObject.GetComponent<SelectableObject>());
 
-                        currentEvent = MouseEvent.Selection;
-                        hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+                                currentEvent = MouseEvent.Selection;
+                                hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+                            }
+                            //refocus to one selection
+                            else
+                            {
+                                DeselectItem(hit.transform.GetComponent<SelectableObject>());
+                            }
+                        }
+                        else {
+                            if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)) {
+                                ClearSelection();
+                            }
+
+                            SelectedObjects.Add(hit.transform.gameObject.GetComponent<SelectableObject>());
+                            SwitchPrimarySelected(hit.transform.gameObject.GetComponent<SelectableObject>());
+
+                            currentEvent = MouseEvent.Selection;
+                            hit.transform.gameObject.GetComponent<SelectableObject>().OnSelect();
+                        }
                     }
                     //deselect on ground selection, with selection exceptions
                     else if (hit.transform.gameObject.tag == "Ground" && !((currentEvent == MouseEvent.PrefabBuild || (currentEvent == MouseEvent.Selection && boxActive)) && Input.GetKey(KeyCode.LeftShift)))
@@ -390,7 +407,7 @@ public class SelectionManager : MonoBehaviour
                         }
                         currentEvent = MouseEvent.Nothing;
                         SelectedObjects.Clear();
-                    }                
+                    }
                 }
             }
         }
@@ -480,6 +497,29 @@ public class SelectionManager : MonoBehaviour
 
     }
 
+    //deselects an object
+    public void DeselectItem(SelectableObject obj) {
+        obj.OnDeselect();
+
+        //remove obj
+        if (SelectedObjects.Contains(obj)){
+            SelectedObjects.Remove(obj);
+        }
+
+        //exception checking
+        if (SelectedObjects.Count > 0)
+        {
+            if (PrimarySelectable == obj)
+            {
+                PrimarySelectable = SelectedObjects[SelectedObjects.Count - 1];
+            }
+        }
+        else
+        {
+            ClearSelection();
+        }
+
+    }
     private void OnGUI()
     {
         //used to draw selection box

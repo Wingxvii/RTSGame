@@ -62,9 +62,7 @@ public class Player : SelectableObject
         }
         else
         {
-            OnDeactivation();
-            SelectionManager.Instance.AllObjects.Remove(this);
-            Object.Destroy(this);
+            base.OnDeath();
         }
     }
 }

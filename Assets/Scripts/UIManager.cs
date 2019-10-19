@@ -58,6 +58,7 @@ public class UIManager : MonoBehaviour
                     break;
                 case EntityType.Wall:
                     EnableUI(UIWall);
+                    GetStats(SelectionManager.Instance.PrimarySelectable);
                     break;
                 case EntityType.Player:
                     EnableUI(UIPlayer);
@@ -97,6 +98,10 @@ public class UIManager : MonoBehaviour
             case EntityType.Player:
                 UIPlayer.transform.Find("Health").GetComponent<UnityEngine.UI.Text>().text = obj.currentHealth.ToString() + "/" + obj.maxHealth.ToString();
                 break;
+            case EntityType.Wall:
+                UIWall.transform.Find("Health").GetComponent<UnityEngine.UI.Text>().text = obj.currentHealth.ToString() + "/" + obj.maxHealth.ToString();
+                break;
+
             default:
                 break;
         }

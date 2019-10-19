@@ -53,11 +53,6 @@ public class SelectableObject : MonoBehaviour
     private void Update()
     {
         healthBar.value = (float)currentHealth / (float)maxHealth;
-        if(currentHealth <= 0)
-        {
-            OnDeath();
-        }
-
         //call base function
         BaseUpdate();
     }
@@ -76,6 +71,10 @@ public class SelectableObject : MonoBehaviour
     public void OnDamage(int num) {
         if (destructable || type == EntityType.Player) {
             currentHealth -= num;
+        }
+        if (currentHealth <= 0)
+        {
+            OnDeath();
         }
     }
 
@@ -98,6 +97,14 @@ public class SelectableObject : MonoBehaviour
     public virtual void IssueLocation(Vector3 location) { }
     public virtual void OnActivation() { }
     public virtual void OnDeactivation() { }
-    public virtual void OnDeath() { }
+
+
+    public virtual void OnDeath() {
+        OnDeselect();
+        OnDeactivation();
+        SelectionManager.Instance.DeselectItem(this);
+        SelectionManager.Instance.AllObjects.Remove(this);
+        Object.Destroy(this.gameObject);
+    }
 
 }
