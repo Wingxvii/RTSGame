@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEditor.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
                     break;
                 case EntityType.Player:
                     EnableUI(UIPlayer);
+                    GetStats(SelectionManager.Instance.PrimarySelectable);
                     break;
 
                 default:
@@ -74,17 +75,30 @@ public class UIManager : MonoBehaviour
     }
 
     void EnableUI(GameObject enabledUI = null) {
-        UIBuilding.SetActive(false);
-        UIBarracks.SetActive(false);
-        UIDroid.SetActive(false);
-        UITurret.SetActive(false);
-        UIWall.SetActive(false);
-        UIPlayer.SetActive(false);
 
-        if (enabledUI != null)
+        if (!enabledUI.activeSelf)
         {
-            enabledUI.SetActive(true);
+            UIBuilding.SetActive(false);
+            UIBarracks.SetActive(false);
+            UIDroid.SetActive(false);
+            UITurret.SetActive(false);
+            UIWall.SetActive(false);
+            UIPlayer.SetActive(false);
+
+            if (enabledUI != null)
+            {
+                enabledUI.SetActive(true);
+            }
         }
     }
 
+    void GetStats(SelectableObject obj) {
+        switch (obj.type) {
+            case EntityType.Player:
+                UIPlayer.transform.Find("Health").GetComponent<UnityEngine.UI.Text>().text = obj.currentHealth.ToString() + "/" + obj.maxHealth.ToString();
+                break;
+            default:
+                break;
+        }
+    }
 }
