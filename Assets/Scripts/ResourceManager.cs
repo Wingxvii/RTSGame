@@ -8,6 +8,7 @@ public static class ResourceConstants {
     public const int COST_BARRACKS = 500;
     public const int COST_DROIDS = 200;
     public const int COST_TURRERT = 400;
+    public const int COST_WALL = 250;
 
     public const int SUPPLY_PER_BARRACKS = 20;
 
@@ -91,6 +92,15 @@ public class ResourceManager : MonoBehaviour
                 }
                 return false;
                 break;
+            case EntityType.Wall:
+                if (credits >= ResourceConstants.COST_WALL)
+                {
+                    credits -= ResourceConstants.COST_WALL;
+                    return true;
+                }
+                return false;
+                break;
+
             default:
                 Debug.Log("PURCHACE ERROR");
                 return false;

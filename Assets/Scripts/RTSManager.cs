@@ -78,7 +78,7 @@ public class RTSManager : MonoBehaviour
         prefabObject.GetComponent<Collider>().enabled = false;
         prefabObject.GetComponentInChildren<Canvas>().enabled = false;
         prefabObject.GetComponent<SelectableObject>().enabled = false;
-
+        ((Behaviour)prefabObject.GetComponent("Halo")).enabled = false;
         if (prefabType == EntityType.Turret)
         {
             prefabObject.GetComponentInChildren<ParticleSystem>().Pause();

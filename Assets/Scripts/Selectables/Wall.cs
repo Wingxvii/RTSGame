@@ -4,4 +4,12 @@ using UnityEngine;
 
 public class Wall : SelectableObject
 {
+
+    protected override void BaseStart()
+    {
+        currentHealth = 500;
+        maxHealth = 500;
+
+    }
+
 }
