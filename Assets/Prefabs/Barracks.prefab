@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 8941843676656745788}
   - component: {fileID: 5664113259941518892}
   - component: {fileID: 2456052223259665518}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Barracks
   m_TagString: SelectableObject
   m_Icon: {fileID: 0}

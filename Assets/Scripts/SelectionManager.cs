@@ -56,14 +56,21 @@ public class SelectionManager : MonoBehaviour
     public Vector3 mousePosition;
     private Ray ray;
     private RaycastHit hit;
-    private Camera cam;
-
+    private LayerMask selectables;
 
     void Start()
     {
-        cam = Camera.main;
         SelectedObjects = new List<SelectableObject>();
         AllObjects.Add(player.GetComponent<SelectableObject>());
+
+        selectables = LayerMask.GetMask("Normal");
+        selectables = LayerMask.GetMask("Player");
+        selectables = LayerMask.GetMask("Background");
+        selectables = LayerMask.GetMask("Wall");
+        selectables = LayerMask.GetMask("Turret");
+        selectables = LayerMask.GetMask("Droid");
+        selectables = LayerMask.GetMask("Barracks");
+
     }
 
     // Update is called once per frame
@@ -74,7 +81,7 @@ public class SelectionManager : MonoBehaviour
 
         //raycast the mouse
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 500))
+        if (Physics.Raycast(ray, out hit, 500, selectables))
         {
             mousePosition = hit.point;
         }

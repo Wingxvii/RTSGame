@@ -1701,7 +1701,7 @@ GameObject:
   - component: {fileID: 795233660}
   - component: {fileID: 795233662}
   - component: {fileID: 795233661}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2277,7 +2277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1073874932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3383,7 +3383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1789308443}
   - component: {fileID: 1789308444}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3639,7 +3639,7 @@ GameObject:
   - component: {fileID: 1891669595}
   - component: {fileID: 1891669594}
   - component: {fileID: 1891669593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4108,7 +4108,7 @@ GameObject:
   - component: {fileID: 2036532132}
   - component: {fileID: 2036532134}
   - component: {fileID: 2036532133}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4310,7 +4310,7 @@ GameObject:
   - component: {fileID: 2051918021}
   - component: {fileID: 2051918020}
   - component: {fileID: 2051918019}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}

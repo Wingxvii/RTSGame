@@ -141,7 +141,7 @@ public class RTSManager : MonoBehaviour
         #endregion
 
         if (prefabObject != null && prefabObject.activeSelf) {
-            prefabObject.GetComponent<Transform>().position = new Vector3(SelectionManager.Instance.mousePosition.x, SelectionManager.Instance.mousePosition.y + prefabObject.GetComponent<Transform>().localScale.y/2.0f , SelectionManager.Instance.mousePosition.z);
+            prefabObject.GetComponent<Transform>().position = new Vector3(SelectionManager.Instance.mousePosition.x, SelectionManager.Instance.mousePosition.y + prefabObject.GetComponent<Transform>().localScale.y , SelectionManager.Instance.mousePosition.z);
             //prefabObject.GetComponent<Transform>().position = SelectionManager.Instance.mousePosition;
         }
 

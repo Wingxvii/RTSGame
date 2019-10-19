@@ -19,11 +19,11 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Turret
+  - Droid
+  - Barracks
+  - Background
   - 
   - 
   - 

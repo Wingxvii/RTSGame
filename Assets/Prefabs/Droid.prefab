@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 7709805804806494388}
   - component: {fileID: 8539590370312802865}
   - component: {fileID: 4893369292615047138}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Droid
   m_TagString: SelectableObject
   m_Icon: {fileID: 0}

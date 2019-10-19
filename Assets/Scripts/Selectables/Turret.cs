@@ -34,22 +34,28 @@ public class Turret : SelectableObject
     public float reloadTimer = 0.0f;
     public int currentAmno = 10;
 
+
+    //hit ray
+    private RaycastHit hit;
+    public LayerMask turretLayerMask;
+
     protected override void BaseStart()
     {
         muzzle = GetComponentInChildren<ParticleSystem>();
-        muzzle.Pause();
         currentHealth = 500;
         maxHealth = 500;
-
+        turretLayerMask = LayerMask.GetMask("Player");
+        turretLayerMask += LayerMask.GetMask("Wall");
     }
     protected override void BaseFixedUpdate()
     {
-        float dist;
+        float dist = Vector3.Distance(DroidManager.Instance.playerTarget.transform.position, this.transform.position);
 
         switch (state)
         {
             case TurretState.Idle:
-                if (Vector3.Distance(DroidManager.Instance.playerTarget.transform.position, this.transform.position) < visionRange)
+
+                if (dist < visionRange)
                 {
                     state = TurretState.IdleShooting;
                     attackPoint = DroidManager.Instance.playerTarget;
@@ -57,16 +63,15 @@ public class Turret : SelectableObject
                 break;
             case TurretState.IdleShooting:
                 //look at
-                this.transform.LookAt(DroidManager.Instance.playerTarget.transform.position);
-                dist = Vector3.Distance(DroidManager.Instance.playerTarget.transform.position, this.transform.position);
 
                 if (dist < maxRange)
                 {
+                    this.transform.LookAt(DroidManager.Instance.playerTarget.transform.position);
 
                     if (currentAmno > 0)
                     {
                         muzzle.Play();
-                        if (accuracy - (dist / 100.0f) > Random.Range(0.0f, 1.0f))
+                        if (!HitWall() && accuracy - (dist / 100.0f) > Random.Range(0.0f, 1.0f))
                         {
                             DroidManager.Instance.playerTarget.OnDamage(attackDamage);
                         }
@@ -87,17 +92,15 @@ public class Turret : SelectableObject
                 break;
             case TurretState.TargetedShooting:
                 //look at
-                this.transform.LookAt(DroidManager.Instance.playerTarget.transform.position);
-                dist = Vector3.Distance(DroidManager.Instance.playerTarget.transform.position, this.transform.position);
-
                 if (dist < maxRange)
                 {
+                    this.transform.LookAt(DroidManager.Instance.playerTarget.transform.position);
 
                     if (currentAmno > 0)
                     {
                         muzzle.Play();
 
-                        if (accuracy - (dist / 100.0f) > Random.Range(0.0f, 1.0f))
+                        if (!HitWall() && accuracy - (dist / 100.0f) > Random.Range(0.0f, 1.0f))
                         {
                             DroidManager.Instance.playerTarget.OnDamage(attackDamage);
                         }
@@ -167,5 +170,32 @@ public class Turret : SelectableObject
         Object.Destroy(this);
     }
 
+
+    private bool HitWall() {
+        if (Physics.Raycast(this.transform.position, (DroidManager.Instance.playerTarget.transform.position - this.transform.position), out hit, maxRange, turretLayerMask))
+        {
+            if (hit.transform.gameObject.tag == "SelectableObject" && hit.transform.GetComponent<SelectableObject>().type == EntityType.Wall)
+            {
+                Debug.Log("Hit Wall");
+                hit.transform.GetComponent<Wall>().WallIsHit(hit.point);
+                hit.transform.GetComponent<Wall>().OnDamage(attackDamage);
+                return true;
+            }
+            else if (hit.transform.gameObject.tag == "SelectableObject" && hit.transform.GetComponent<SelectableObject>().type == EntityType.Player) {
+                Debug.Log("Hit Player");
+                return false;
+            }
+            else
+            {
+                Debug.Log("Hit Something Else");
+                Debug.Log(hit.transform.gameObject.name);
+                return false;
+            }
+
+        }
+
+        return false;
+
+    }
 
 }
