@@ -113,7 +113,7 @@ MonoBehaviour:
   level: 1
   id: 0
   type: 3
-  destructable: 0
+  destructable: 1
   selected: 0
   maxSpeed: 10
   minSpeed: 2

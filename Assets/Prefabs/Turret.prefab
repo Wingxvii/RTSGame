@@ -123,4 +123,5 @@ MonoBehaviour:
   level: 1
   id: 0
   type: 5
-  destructable: 0
+  destructable: 1
+  selected: 0

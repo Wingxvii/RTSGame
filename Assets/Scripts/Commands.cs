@@ -34,8 +34,8 @@ class AddCommand : ICommand
     }
     public void UnExecuteAction()
     {
-        buildingElement.gameObject.SetActive(false);
         buildingElement.OnDeactivation();
+        buildingElement.gameObject.SetActive(false);
         SelectionManager.Instance.AllObjects.Remove(buildingElement);
         done = false;
     }
@@ -106,8 +106,8 @@ class DeleteCommand : ICommand
     }
     public void UnExecuteAction()
     {
-        buildingElement.gameObject.SetActive(true);
         buildingElement.OnActivation();
+        buildingElement.gameObject.SetActive(true);
         SelectionManager.Instance.AllObjects.Add(buildingElement);
         done = false;
     }
