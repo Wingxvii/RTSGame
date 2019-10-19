@@ -29,6 +29,7 @@ public class RTSManager : MonoBehaviour
 
     public GameObject moveCursorPrefab;
     public GameObject attackCursorPrefab;
+    public GameObject rallyPrefab;
 
     //stack of undo and redo commands
     private Stack<ICommand> _Undocommands = new Stack<ICommand>();
@@ -74,7 +75,6 @@ public class RTSManager : MonoBehaviour
                 break;
         }
         //define the variable changes required for the prefab
-        prefabObject.layer = 2;
         prefabObject.GetComponent<Collider>().enabled = false;
         //prefabObject.GetComponent<SelectableObject>().enabled = false;
         prefabObject.SetActive(true);
@@ -242,9 +242,6 @@ public class RTSManager : MonoBehaviour
         Object.Destroy(prefabObject);
 
         prefabObject = (GameObject)Instantiate(moveCursorPrefab);
-        //define the variable changes required for the prefab
-        prefabObject.layer = 2;
-        //prefabObject.GetComponent<SelectableObject>().enabled = false;
         prefabObject.SetActive(true);
 
         SelectionManager.Instance.currentEvent = MouseEvent.UnitMove;
@@ -257,12 +254,19 @@ public class RTSManager : MonoBehaviour
         Object.Destroy(prefabObject);
 
         prefabObject = (GameObject)Instantiate(attackCursorPrefab);
-        //define the variable changes required for the prefab
-        prefabObject.layer = 2;
-        //prefabObject.GetComponent<SelectableObject>().enabled = false;
         prefabObject.SetActive(true);
 
         SelectionManager.Instance.currentEvent = MouseEvent.UnitAttack;
+
+    }
+
+    public void OnRally() {
+        Object.Destroy(prefabObject);
+
+        prefabObject = (GameObject)Instantiate(rallyPrefab);
+        prefabObject.SetActive(true);
+
+        SelectionManager.Instance.currentEvent = MouseEvent.Rally;
 
     }
 

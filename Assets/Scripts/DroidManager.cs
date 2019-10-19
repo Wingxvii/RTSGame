@@ -95,6 +95,26 @@ public class DroidManager : MonoBehaviour
         }
     }
 
+    //called when drone is requested to be built, with a rally
+    public void QueueFinished(Transform home, EntityType type, Vector3 rally)
+    {
+        switch (type)
+        {
+            case EntityType.Droid:
+                //add offset here
+                Vector3 pos = new Vector3(Random.Range(-1.0f, 1.0f), spawnHeight, Random.Range(-1.0f, 1.0f));
+                pos = pos.normalized * spawnRange;
+
+                SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
+                ActiveDroidPool[ActiveDroidPool.Count - 1].IssueLocation(rally);
+                break;
+            default:
+                Debug.Log("ERROR: DROID TYPE INVALID");
+                break;
+        }
+    }
+
+
     public void SpawnDroid(EntityType type, Vector3 pos) {
         Droidpool[Droidpool.Count - 1].transform.position = pos;
         Droidpool[Droidpool.Count - 1].gameObject.SetActive(true);

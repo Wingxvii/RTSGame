@@ -10,7 +10,7 @@ public enum MouseEvent
     PrefabBuild = 2,
     UnitMove = 3,
     UnitAttack = 4,
-
+    Rally = 5,
 }
 
 public class SelectionManager : MonoBehaviour
@@ -318,6 +318,21 @@ public class SelectionManager : MonoBehaviour
                 }
 
             }
+            else if (currentEvent == MouseEvent.Rally)
+            {
+                //send the mouse location of all objects with the same type as the primary type
+                foreach (SelectableObject obj in SelectedObjects)
+                {
+                    if (obj.type == PrimarySelectable.type)
+                    {
+                        obj.IssueLocation(mousePosition);
+                    }
+                }
+
+                Object.Destroy(RTSManager.Instance.prefabObject);
+                currentEvent = MouseEvent.Selection;
+
+            }
             else
             {
 
@@ -368,7 +383,7 @@ public class SelectionManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
-            if (currentEvent == MouseEvent.PrefabBuild || currentEvent == MouseEvent.UnitMove)
+            if (currentEvent == MouseEvent.PrefabBuild || currentEvent == MouseEvent.UnitMove || currentEvent == MouseEvent.UnitAttack || currentEvent == MouseEvent.Rally)
             {
                 Object.Destroy(RTSManager.Instance.prefabObject);
                 currentEvent = MouseEvent.Selection;

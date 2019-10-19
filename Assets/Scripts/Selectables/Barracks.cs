@@ -11,6 +11,9 @@ public class Barracks : SelectableObject
 
     public Canvas canvas;
 
+    public GameObject flagObj;
+    public bool flagActive = false;
+
     //inherited function realizations
     protected override void BaseStart()
     {
@@ -21,6 +24,10 @@ public class Barracks : SelectableObject
         buildProcess.gameObject.SetActive(false);
 
         buildTimes = new Queue<float>();
+
+        //create a flag from the prefab
+        flagObj = Instantiate(flagObj, Vector3.zero, Quaternion.identity);
+        flagObj.SetActive(false);
     }
     protected override void BaseUpdate()
     {
@@ -38,16 +45,35 @@ public class Barracks : SelectableObject
             currentBuildTime -= Time.deltaTime;
             if (currentBuildTime < 0)
             {
-                DroidManager.Instance.QueueFinished(this.transform, EntityType.Droid);
+                if (flagActive)
+                {
+                    DroidManager.Instance.QueueFinished(this.transform, EntityType.Droid, flagObj.transform.position);
+                }
+                else
+                {
+                    DroidManager.Instance.QueueFinished(this.transform, EntityType.Droid);
+                }
             }
         }
         //queue ended
         else if (currentBuildTime <= 0) {
             buildProcess.gameObject.SetActive(false);
         }
+
+        //flag activation on selection
+        if (selected && SelectionManager.Instance.PrimarySelectable == this && flagActive) {
+            flagObj.SetActive(true);
+        }
+        else if(flagObj.activeSelf){
+            flagObj.SetActive(false);
+        }
+
     }
 
-
+    public override void IssueLocation(Vector3 location) {
+        flagObj.transform.position = new Vector3(location.x, 2.11f, location.z);
+        flagActive = true;
+    }
     public override void OnActivation()
     {
         ResourceManager.Instance.numBarracksActive++;

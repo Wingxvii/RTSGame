@@ -8,6 +8,7 @@ TagManager:
   - SelectableObject
   - GameManager
   - Animation
+  - Flag
   layers:
   - Default
   - TransparentFX

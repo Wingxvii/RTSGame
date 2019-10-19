@@ -444,8 +444,13 @@ MonoBehaviour:
   id: 0
   type: 2
   destructable: 1
+  selected: 0
   buildProcess: {fileID: 0}
   currentBuildTime: 0
+  canvas: {fileID: 0}
+  flagObj: {fileID: 274030189064651138, guid: e7a791ce740bfd344b008af4444a1eaf, type: 3}
+  flagLocation: {x: 0, y: 0, z: 0}
+  flagActive: 0
 --- !u!136 &2456052223259665518
 CapsuleCollider:
   m_ObjectHideFlags: 0
