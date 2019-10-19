@@ -21,6 +21,8 @@ public class Turret : SelectableObject
     private Player attackPoint;
     private Vector3 attackTarget;
 
+    public ParticleSystem muzzle;
+
     //stats
     public float reloadRate = 5.0f;
     public float recoilRate = 0.5f;
@@ -32,6 +34,12 @@ public class Turret : SelectableObject
     public float reloadTimer = 0.0f;
     public int currentAmno = 10;
 
+    protected override void BaseStart()
+    {
+        muzzle = GetComponentInChildren<ParticleSystem>();
+        muzzle.Pause();
+
+    }
     protected override void BaseFixedUpdate()
     {
         float dist;
@@ -55,7 +63,7 @@ public class Turret : SelectableObject
 
                     if (currentAmno > 0)
                     {
-
+                        muzzle.Play();
                         if (accuracy - (dist / 100.0f) > Random.Range(0.0f, 1.0f))
                         {
                             DroidManager.Instance.playerTarget.OnDamage(attackDamage);
@@ -85,6 +93,8 @@ public class Turret : SelectableObject
 
                     if (currentAmno > 0)
                     {
+                        muzzle.Play();
+
                         if (accuracy - (dist / 100.0f) > Random.Range(0.0f, 1.0f))
                         {
                             DroidManager.Instance.playerTarget.OnDamage(attackDamage);
@@ -137,7 +147,10 @@ public class Turret : SelectableObject
     public void IssueAttack(Player attackee)
     {
         Debug.Log("attack issueds");
-        state = TurretState.TargetedShooting;
+        if (state != TurretState.Reloading)
+        {
+            state = TurretState.TargetedShooting;
+        }
         attackPoint = attackee;
     }
     public void Reload() {
