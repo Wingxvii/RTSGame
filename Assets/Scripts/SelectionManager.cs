@@ -287,6 +287,18 @@ public class SelectionManager : MonoBehaviour
                                 }
                             }
                             break;
+                        //turrets will aim attack enemy
+                        case EntityType.Turret:
+                            foreach (SelectableObject obj in SelectedObjects)
+                            {
+                                if (obj.type == EntityType.Turret)
+                                {
+                                    Turret temp = (Turret)obj;
+                                    temp.IssueAttack(hit.transform.gameObject.GetComponent<Player>());
+                                }
+                            }
+                            break;
+
                         default:
                             break;
                     }
@@ -407,6 +419,18 @@ public class SelectionManager : MonoBehaviour
                                 }
                             }
                             break;
+                        //turrets will aim attack enemy
+                        case EntityType.Turret:
+                            foreach (SelectableObject obj in SelectedObjects)
+                            {
+                                if (obj.type == EntityType.Turret)
+                                {
+                                    Turret temp = (Turret)obj;
+                                    temp.IssueAttack(hit.transform.gameObject.GetComponent<Player>());
+                                }
+                            }
+                            break;
+
                         default:
                             break;
                     }

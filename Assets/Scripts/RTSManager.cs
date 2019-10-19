@@ -260,6 +260,19 @@ public class RTSManager : MonoBehaviour
 
     }
 
+    public void OnReload()
+    {
+        foreach (SelectableObject obj in SelectionManager.Instance.SelectedObjects)
+        {
+            if (obj.type == EntityType.Turret)
+            {
+                Turret temp = (Turret)obj;
+                temp.Reload();
+            }
+        }
+
+    }
+
     public void OnRally() {
         Object.Destroy(prefabObject);
 

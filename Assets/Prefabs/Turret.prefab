@@ -125,3 +125,14 @@ MonoBehaviour:
   type: 5
   destructable: 1
   selected: 0
+  state: 0
+  visionRange: 30
+  targetedShootingRange: 40
+  maxRange: 50
+  reloadRate: 5
+  recoilRate: 0.5
+  attackAmno: 10
+  attackDamage: 5
+  accuracy: 0.75
+  reloadTimer: 0
+  currentAmno: 10

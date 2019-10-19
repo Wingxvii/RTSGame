@@ -25,12 +25,14 @@ public class UIManager : MonoBehaviour
     public GameObject UIBuilding;
     public GameObject UIBarracks;
     public GameObject UIDroid;
+    public GameObject UITurret;
 
     // Start is called before the first frame update
     void Start()
     {
         UIBarracks.SetActive(false);
         UIDroid.SetActive(false);
+        UITurret.SetActive(false);
     }
 
     // Update is called once per frame
@@ -47,6 +49,10 @@ public class UIManager : MonoBehaviour
                 case EntityType.Droid:
                     EnableUI(UIDroid);
                     break;
+                case EntityType.Turret:
+                    EnableUI(UITurret);
+                    break;
+
                 default:
                     EnableUI();
                     break;
@@ -61,6 +67,7 @@ public class UIManager : MonoBehaviour
         UIBuilding.SetActive(false);
         UIBarracks.SetActive(false);
         UIDroid.SetActive(false);
+        UITurret.SetActive(false);
 
         if (enabledUI != null)
         {

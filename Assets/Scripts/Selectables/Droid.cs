@@ -122,7 +122,6 @@ public class Droid : SelectableObject
     }
     private void OnAttack() {
         if (currentCoolDown <= 0.0f) {
-            Debug.Log("Arracked");
             attackPoint.OnDamage(attackDamage);
             currentCoolDown = coolDown;
         }

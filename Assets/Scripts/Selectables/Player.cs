@@ -48,7 +48,9 @@ public class Player : SelectableObject
         {
             playerBody.velocity = playerBody.velocity.normalized * maxSpeed;
         }
+    }
 
-
+    public override void OnDamage(int num) {
+        Debug.Log("Ouch:" + num.ToString());
     }
 }
