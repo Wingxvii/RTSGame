@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 public enum EntityType
 {
@@ -22,6 +23,10 @@ public class SelectableObject : MonoBehaviour
     public bool destructable = false;
     public static int idtracker { get; private set; }
     public bool selected = false;
+    public Slider healthBar;
+
+    public int currentHealth = 1;
+    public int maxHealth = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +52,12 @@ public class SelectableObject : MonoBehaviour
 
     private void Update()
     {
+        healthBar.value = (float)currentHealth / (float)maxHealth;
+        if(currentHealth <= 0)
+        {
+            OnDeath();
+        }
+
         //call base function
         BaseUpdate();
     }
@@ -61,6 +72,13 @@ public class SelectableObject : MonoBehaviour
         //call base function
         BaseOnDestory();
     }
+
+    public void OnDamage(int num) {
+        if (destructable || type == EntityType.Player) {
+            currentHealth -= num;
+        }
+    }
+
 
     public void ResetValues()
     {
@@ -80,6 +98,6 @@ public class SelectableObject : MonoBehaviour
     public virtual void IssueLocation(Vector3 location) { }
     public virtual void OnActivation() { }
     public virtual void OnDeactivation() { }
-    public virtual void OnDamage(int num) { }
+    public virtual void OnDeath() { }
 
 }

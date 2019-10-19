@@ -14,6 +14,9 @@ public class Player : SelectableObject
     // Start is called before the first frame update
     protected override void BaseStart()
     {
+        currentHealth = 200;
+        maxHealth = 200;
+
         destructable = false;
 
         playerTransform = this.GetComponent<Transform>();
@@ -50,7 +53,18 @@ public class Player : SelectableObject
         }
     }
 
-    public override void OnDamage(int num) {
-        Debug.Log("Ouch:" + num.ToString());
+    public override void OnDeath()
+    {
+        Debug.Log("Player's Dead");
+        if (ResourceConstants.UNKILLABLEPLAYER)
+        {
+            this.currentHealth = 200;
+        }
+        else
+        {
+            OnDeactivation();
+            SelectionManager.Instance.AllObjects.Remove(this);
+            Object.Destroy(this);
+        }
     }
 }

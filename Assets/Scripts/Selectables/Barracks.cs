@@ -17,10 +17,13 @@ public class Barracks : SelectableObject
     //inherited function realizations
     protected override void BaseStart()
     {
+        currentHealth = 1000;
+        maxHealth = 1000;
+
         canvas = GetComponentInChildren<Canvas>();
         canvas.transform.LookAt(canvas.transform.position + Camera.main.transform.rotation * Vector3.back, Camera.main.transform.rotation * Vector3.up);
 
-        buildProcess = GetComponentInChildren<Slider>();
+        buildProcess = canvas.transform.Find("Building Progress").GetComponent<Slider>();
         buildProcess.gameObject.SetActive(false);
 
         buildTimes = new Queue<float>();
@@ -91,6 +94,13 @@ public class Barracks : SelectableObject
         {
             buildTimes.Enqueue(DroidManager.Instance.RequestQueue(EntityType.Droid));
         }
+    }
+    public override void OnDeath()
+    {
+        Debug.Log("Dead Barracks");
+        OnDeactivation();
+        SelectionManager.Instance.AllObjects.Remove(this);
+        Object.Destroy(this);
     }
 
 }

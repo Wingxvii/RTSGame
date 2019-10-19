@@ -76,7 +76,13 @@ public class RTSManager : MonoBehaviour
         }
         //define the variable changes required for the prefab
         prefabObject.GetComponent<Collider>().enabled = false;
-        //prefabObject.GetComponent<SelectableObject>().enabled = false;
+        prefabObject.GetComponentInChildren<Canvas>().enabled = false;
+        prefabObject.GetComponent<SelectableObject>().enabled = false;
+
+        if (prefabType == EntityType.Turret)
+        {
+            prefabObject.GetComponentInChildren<ParticleSystem>().Pause();
+        }
         prefabObject.SetActive(true);
     }
 

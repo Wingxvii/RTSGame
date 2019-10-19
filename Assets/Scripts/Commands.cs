@@ -99,15 +99,15 @@ class DeleteCommand : ICommand
 
     public void ExecuteAction()
     {
-        buildingElement.gameObject.SetActive(false);
         buildingElement.OnDeactivation();
+        buildingElement.gameObject.SetActive(false);
         SelectionManager.Instance.AllObjects.Remove(buildingElement);
         done = true;
     }
     public void UnExecuteAction()
     {
-        buildingElement.OnActivation();
         buildingElement.gameObject.SetActive(true);
+        buildingElement.OnActivation();
         SelectionManager.Instance.AllObjects.Add(buildingElement);
         done = false;
     }

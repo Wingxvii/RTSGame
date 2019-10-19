@@ -38,6 +38,8 @@ public class Turret : SelectableObject
     {
         muzzle = GetComponentInChildren<ParticleSystem>();
         muzzle.Pause();
+        currentHealth = 500;
+        maxHealth = 500;
 
     }
     protected override void BaseFixedUpdate()
@@ -156,6 +158,13 @@ public class Turret : SelectableObject
     public void Reload() {
         reloadTimer += reloadRate;
         state = TurretState.Reloading;
+    }
+    public override void OnDeath()
+    {
+        Debug.Log("Dead Turret");
+        OnDeactivation();
+        SelectionManager.Instance.AllObjects.Remove(this);
+        Object.Destroy(this);
     }
 
 

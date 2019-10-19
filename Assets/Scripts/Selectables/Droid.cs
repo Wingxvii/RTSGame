@@ -30,6 +30,9 @@ public class Droid : SelectableObject
     protected override void BaseStart()
     {
         selfRigid = this.GetComponent<Rigidbody>();
+        currentHealth = 100;
+        maxHealth = 100;
+
     }
 
     protected override void BaseUpdate()
@@ -108,13 +111,13 @@ public class Droid : SelectableObject
         attackPoint = attackee;
     }
 
-    //unique classes
-    public void OnDeath()
+    public override void OnDeath()
     {
-        Debug.Log("Dead");
+        Debug.Log("Dead droid");
         DroidManager.Instance.KillDroid(this);
     }
 
+    //unique classes
     public void MoveTo(Vector2 pos) {
 
         Vector2 dir = new Vector2(pos.x - this.transform.position.x, pos.y - this.transform.position.z).normalized;
