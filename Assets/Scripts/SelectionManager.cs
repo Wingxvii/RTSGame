@@ -56,20 +56,20 @@ public class SelectionManager : MonoBehaviour
     public Vector3 mousePosition;
     private Ray ray;
     private RaycastHit hit;
-    private LayerMask selectables;
+    public LayerMask selectables;
 
     void Start()
     {
         SelectedObjects = new List<SelectableObject>();
         AllObjects.Add(player.GetComponent<SelectableObject>());
 
-        selectables = LayerMask.GetMask("Normal");
-        selectables = LayerMask.GetMask("Player");
-        selectables = LayerMask.GetMask("Background");
-        selectables = LayerMask.GetMask("Wall");
-        selectables = LayerMask.GetMask("Turret");
-        selectables = LayerMask.GetMask("Droid");
-        selectables = LayerMask.GetMask("Barracks");
+        selectables = LayerMask.GetMask("Default");
+        selectables += LayerMask.GetMask("Player");
+        selectables += LayerMask.GetMask("Background");
+        selectables += LayerMask.GetMask("Wall");
+        selectables += LayerMask.GetMask("Turret");
+        selectables += LayerMask.GetMask("Droid");
+        selectables += LayerMask.GetMask("Barracks");
 
     }
 
