@@ -52,20 +52,23 @@ public class UIManager : MonoBehaviour
             {
                 case EntityType.Barracks:
                     EnableUI(UIBarracks);
+                    GetStats(UIBarracks,SelectionManager.Instance.PrimarySelectable);
                     break;
                 case EntityType.Droid:
                     EnableUI(UIDroid);
+                    GetStats(UIDroid,SelectionManager.Instance.PrimarySelectable);
                     break;
                 case EntityType.Turret:
                     EnableUI(UITurret);
+                    GetStats(UITurret,SelectionManager.Instance.PrimarySelectable);
                     break;
                 case EntityType.Wall:
                     EnableUI(UIWall);
-                    GetStats(SelectionManager.Instance.PrimarySelectable);
+                    GetStats(UIWall,SelectionManager.Instance.PrimarySelectable);
                     break;
                 case EntityType.Player:
                     EnableUI(UIPlayer);
-                    GetStats(SelectionManager.Instance.PrimarySelectable);
+                    GetStats(UIPlayer,SelectionManager.Instance.PrimarySelectable);
                     break;
 
                 default:
@@ -105,17 +108,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void GetStats(SelectableObject obj) {
-        switch (obj.type) {
-            case EntityType.Player:
-                UIPlayer.transform.Find("Health").GetComponent<UnityEngine.UI.Text>().text = obj.currentHealth.ToString() + "/" + obj.maxHealth.ToString();
-                break;
-            case EntityType.Wall:
-                UIWall.transform.Find("Health").GetComponent<UnityEngine.UI.Text>().text = obj.currentHealth.ToString() + "/" + obj.maxHealth.ToString();
-                break;
-
-            default:
-                break;
-        }
+    void GetStats(GameObject UI, SelectableObject obj) {
+        UI.transform.Find("Health").GetComponent<UnityEngine.UI.Text>().text = obj.currentHealth.ToString() + "/" + obj.maxHealth.ToString();
     }
 }
