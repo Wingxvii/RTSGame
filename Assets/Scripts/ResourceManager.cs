@@ -43,16 +43,27 @@ public class ResourceManager : MonoBehaviour
 
     public Text creditText;
     public Text supplyText;
+    public Text time;
+
+    public float timeElapsed;
 
     // Start is called before the first frame update
     void Start()
     {
         credits = 1000;
+        timeElapsed = 0;
+    }
+
+    private void Update()
+    {
+        timeElapsed += Time.deltaTime;
+        time.text = ((int)(timeElapsed / 60.0f)).ToString("00") + ":" + ((int)(timeElapsed % 60)).ToString("00");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
         if (ResourceConstants.CREDITS_OFF)
         {
             credits = 99999;
