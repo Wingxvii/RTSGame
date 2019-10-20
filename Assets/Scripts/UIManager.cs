@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     public GameObject UITurret;
     public GameObject UIWall;
     public GameObject UIPlayer;
+    public GameObject UISelection;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,8 @@ public class UIManager : MonoBehaviour
         UITurret.SetActive(false);
         UIWall.SetActive(false);
         UIPlayer.SetActive(false);
+        UISelection.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -69,9 +72,18 @@ public class UIManager : MonoBehaviour
                     EnableUI();
                     break;
             }
+
+            if (SelectionManager.Instance.SelectedObjects.Count > 1)
+            {
+                UISelection.SetActive(true);
+            }
+            else {
+                UISelection.SetActive(false);
+            }
         }
         else {
             EnableUI(UIBuilding);
+            UISelection.SetActive(false);
         }
     }
 

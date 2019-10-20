@@ -14,6 +14,9 @@ public enum EntityType
     Turret,
 }
 
+//literally just send all instances of this over to make networking work
+//plus MAYBE a few resources
+
 public class SelectableObject : MonoBehaviour
 {
     public Behaviour halo;

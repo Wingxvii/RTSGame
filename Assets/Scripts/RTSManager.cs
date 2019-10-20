@@ -200,6 +200,7 @@ public class RTSManager : MonoBehaviour
         {
             SelectionManager.Instance.SelectedObjects.Add(obj);
         }
+
         OnDelete();
 
         //clear undo commands as well
@@ -209,8 +210,6 @@ public class RTSManager : MonoBehaviour
         }
         _Undocommands.Clear();
 
-
-        //SelectionManager.Instance.AllObjects.Clear();
     }
 
     public void ClearCommands() {

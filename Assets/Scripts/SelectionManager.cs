@@ -52,11 +52,16 @@ public class SelectionManager : MonoBehaviour
     //selected types
     public bool selectedTypeFlag = false;
 
+    //dirty flag for selection changes
+    public bool selectionChanged = false;
+
     //raycasting
     public Vector3 mousePosition;
     private Ray ray;
     private RaycastHit hit;
     public LayerMask selectables;
+
+
 
     void Start()
     {
@@ -70,6 +75,7 @@ public class SelectionManager : MonoBehaviour
         selectables += LayerMask.GetMask("Turret");
         selectables += LayerMask.GetMask("Droid");
         selectables += LayerMask.GetMask("Barracks");
+
 
     }
 
@@ -94,6 +100,9 @@ public class SelectionManager : MonoBehaviour
 
         //handle key press
         HandleKeys();
+
+        //handle selection changes
+        HandleSelectionChanges();
     }
 
     public void OnPrefabCreation()
@@ -112,6 +121,8 @@ public class SelectionManager : MonoBehaviour
             }
             SelectedObjects.Clear();
         }
+
+        selectionChanged = true;
         currentEvent = MouseEvent.Nothing;
         boxStart = Vector2.zero;
         boxEnd = Vector2.zero;
@@ -183,7 +194,7 @@ public class SelectionManager : MonoBehaviour
                         SelectedObjects.Add(obj);
                         currentEvent = MouseEvent.Selection;
                         obj.GetComponent<SelectableObject>().OnSelect();
-
+                        selectionChanged = true;
                     }
                 }
                 SwitchPrimarySelected();
@@ -408,11 +419,10 @@ public class SelectionManager : MonoBehaviour
                         currentEvent = MouseEvent.Nothing;
                         SelectedObjects.Clear();
                     }
+                    selectionChanged = true;
                 }
             }
         }
-
-
     }
 
     private void HandleRightMouseClicks()
@@ -494,7 +504,7 @@ public class SelectionManager : MonoBehaviour
         {
             PrimarySelectable = primary;
         }
-
+        //selectionChanged = true;
     }
 
     //deselects an object
@@ -520,6 +530,21 @@ public class SelectionManager : MonoBehaviour
         }
 
     }
+
+    private void HandleSelectionChanges() {
+
+        //if flag is activated do operations
+        if (selectionChanged) {
+            Debug.Log("Selection Changed");
+            if (SelectedObjects.Count > 1) {
+                //here is where the selection UI happens
+                SelectionUI.Instance.ProcessUI(true);
+            }
+
+            selectionChanged = false;
+        }
+    }
+
     private void OnGUI()
     {
         //used to draw selection box
