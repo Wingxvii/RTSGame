@@ -24,6 +24,7 @@ public class SelectionUI : MonoBehaviour
     public List<Button> pages;
     public int currPage = 1;
     public int itemsPerPage;
+    public int numOfPages = 1;
 
     //these are the UI Parameters
     public float XStart = -215;
@@ -60,8 +61,8 @@ public class SelectionUI : MonoBehaviour
 
         foreach (GameObject button in buttonPool)
         {
+            button.transform.SetParent(UIParent.transform);
             button.gameObject.SetActive(false);
-            button.transform.parent = UIParent.transform;
         }
 
 
@@ -74,37 +75,62 @@ public class SelectionUI : MonoBehaviour
     }
 
     public void ProcessUI(bool resetPage) {
-        if (resetPage) { currPage = 1; }
 
+        //resets
+        if (resetPage) { currPage = 1; }
         foreach (GameObject button in buttonPool)
         {
             button.gameObject.SetActive(false);
         }
+        foreach (Button page in pages) {
+            page.gameObject.SetActive(false);
+        }
+        numOfPages = 1;
 
-        int objCounter = 0;
-        foreach (SelectableObject obj in SelectionManager.Instance.SelectedObjects) {
-            objCounter++;
-            if (objCounter < itemsPerPage) {
-                buttonPool[objCounter - 1].SetActive(true);
 
-                switch (obj.type) {
+        //calculate num of pages
+        if (SelectionManager.Instance.SelectedObjects.Count > itemsPerPage) {
+            numOfPages = SelectionManager.Instance.SelectedObjects.Count/itemsPerPage;
+            numOfPages++;
+        }
+
+        //show page tabs
+        for (int counter = 1; counter <= pages.Count; counter++)
+        {
+            if (counter <= numOfPages && numOfPages != 1)
+            {
+                pages[counter-1].gameObject.SetActive(true);
+            }
+        }
+
+        //display based on the page
+        int counterOffset = (currPage - 1) * itemsPerPage;
+
+        for (int counter = counterOffset; counter < SelectionManager.Instance.SelectedObjects.Count; counter++) {
+
+            //counter surpass items exception
+            if (counter >= currPage * itemsPerPage) {
+                break;
+            }
+
+            buttonPool[counter - counterOffset].SetActive(true);
+                switch (SelectionManager.Instance.SelectedObjects[counter].type)
+                {
                     case EntityType.Barracks:
-                        buttonPool[objCounter - 1].GetComponent<Image>().sprite = ButtonBarracks;
+                        buttonPool[counter - counterOffset].GetComponent<Image>().sprite = ButtonBarracks;
                         break;
                     case EntityType.Droid:
-                        buttonPool[objCounter - 1].GetComponent<Image>().sprite = ButtonDroid;
+                        buttonPool[counter - counterOffset].GetComponent<Image>().sprite = ButtonDroid;
                         break;
                     case EntityType.Wall:
-                        buttonPool[objCounter - 1].GetComponent<Image>().sprite = ButtonWall;
+                        buttonPool[counter - counterOffset].GetComponent<Image>().sprite = ButtonWall;
                         break;
                     case EntityType.Turret:
-                        buttonPool[objCounter - 1].GetComponent<Image>().sprite = ButtonTurret;
+                        buttonPool[counter - counterOffset].GetComponent<Image>().sprite = ButtonTurret;
                         break;
                 }
 
-
-                buttonPool[objCounter - 1].GetComponent<SelectionButton>().OnCreate(obj);
-            }
+            buttonPool[counter - counterOffset].GetComponent<SelectionButton>().OnCreate(SelectionManager.Instance.SelectedObjects[counter]);
         }
     }
 

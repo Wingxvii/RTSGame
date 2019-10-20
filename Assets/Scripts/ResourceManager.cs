@@ -119,5 +119,8 @@ public class ResourceManager : MonoBehaviour
     }
     public void UpdateSupply() {
         totalSupply = numBarracksActive * ResourceConstants.SUPPLY_PER_BARRACKS;
+        if (totalSupply > ResourceConstants.SUPPLY_MAX) {
+            totalSupply = ResourceConstants.SUPPLY_MAX;
+        }
     }
 }

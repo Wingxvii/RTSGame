@@ -535,7 +535,10 @@ public class SelectionManager : MonoBehaviour
             {
                 PrimarySelectable = SelectedObjects[SelectedObjects.Count - 1];
             }
-            selectionChanged = true;
+            if (SelectedObjects.Count > 1)
+            {
+                SelectionUI.Instance.ProcessUI(false);
+            }
         }
         else
         {
@@ -548,7 +551,7 @@ public class SelectionManager : MonoBehaviour
 
         //if flag is activated do operations
         if (selectionChanged) {
-            Debug.Log("Selection Changed");
+            //Debug.Log("Selection Changed");
             if (SelectedObjects.Count > 1) {
                 //here is where the selection UI happens
                 SelectionUI.Instance.ProcessUI(true);
