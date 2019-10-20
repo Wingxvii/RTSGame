@@ -3801,6 +3801,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5758283557947960589, guid: 407bd5cbe8c43334bb1b25c0f3826974,
         type: 3}
+      propertyPath: targetsTag.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758283557947960589, guid: 407bd5cbe8c43334bb1b25c0f3826974,
+        type: 3}
       propertyPath: targetsTag.Array.data[0]
       value: SelectableObject
       objectReference: {fileID: 0}

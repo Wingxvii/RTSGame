@@ -61,7 +61,9 @@ public class SelectionManager : MonoBehaviour
     private RaycastHit hit;
     public LayerMask selectables;
 
-
+    //double click
+    private float doubleClickTimeLimit = 0.2f;
+    
 
     void Start()
     {
@@ -76,6 +78,7 @@ public class SelectionManager : MonoBehaviour
         selectables += LayerMask.GetMask("Droid");
         selectables += LayerMask.GetMask("Barracks");
 
+        StartCoroutine(DoubleClickListener());
 
     }
 
@@ -570,4 +573,59 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
+    private IEnumerator DoubleClickListener()
+    {
+        while (enabled)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                yield return ClickEvent();
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator ClickEvent()
+    {
+        //pause a frame so you don't pick up the same mouse down event.
+        yield return new WaitForEndOfFrame();
+
+        float count = 0f;
+        while (count < doubleClickTimeLimit)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                DoubleClick();
+                yield break;
+            }
+            count += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void DoubleClick()
+    {
+        //Debug.Log("Double Clicked");
+        if (currentEvent == MouseEvent.Nothing || currentEvent == MouseEvent.Selection)
+        {
+            if (hit.transform.gameObject.tag == "SelectableObject" && Input.GetKey(KeyCode.LeftShift))
+            {
+                Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+
+                foreach (SelectableObject obj in AllObjects) {
+                    if (obj.type == hit.transform.GetComponent<SelectableObject>().type &&
+                        GeometryUtility.TestPlanesAABB(planes, obj.GetComponent<Renderer>().bounds) &&
+                        !SelectedObjects.Contains(obj))
+                    {
+                        SelectedObjects.Add(obj);
+                        currentEvent = MouseEvent.Selection;
+                        obj.GetComponent<SelectableObject>().OnSelect();
+                        selectionChanged = true;
+                    }
+                }
+
+                SwitchPrimarySelected();
+            }
+        }
+    }
 }
