@@ -2950,25 +2950,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606edbb126113f2409594a9563a59f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XPos: []
-  YPos: []
   pages:
   - {fileID: 1506914740}
   - {fileID: 799370280}
   - {fileID: 1825929831}
   currPage: 1
   itemsPerPage: 0
-  XStart: -216
+  XStart: -215
   XOffset: 55
   numOfCols: 14
-  YStart: -386
+  YStart: -400
   YOffset: -55
   numOfRows: 2
-  ButtonDroid: {fileID: 0}
-  ButtonBarracks: {fileID: 0}
-  ButtonWall: {fileID: 0}
-  ButtonTurret: {fileID: 0}
-  buttons: []
+  ButtonDroid: {fileID: 21300000, guid: cbe9c2918b5fdcd42a71270bdb5a56ca, type: 3}
+  ButtonBarracks: {fileID: 21300000, guid: 1bf1c24f9bb007a4096b7096cadd8a48, type: 3}
+  ButtonWall: {fileID: 21300000, guid: 31c7b954327bd5840bfb01070831ce9d, type: 3}
+  ButtonTurret: {fileID: 21300000, guid: 2389d3072600dde49855758de1818edd, type: 3}
+  ButtonPrefab: {fileID: 1420409244201435278, guid: 46107a3739fa89243beb02a2c6d00b44,
+    type: 3}
+  UIParent: {fileID: 662965265}
+  buttonPool: []
 --- !u!1 &966270732
 GameObject:
   m_ObjectHideFlags: 0

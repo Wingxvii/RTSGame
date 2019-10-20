@@ -496,6 +496,18 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
+    public void OnFocusSelected(SelectableObject obj) {
+        ClearSelection();
+        SelectedObjects.Add(obj);
+        SwitchPrimarySelected(obj);
+
+        currentEvent = MouseEvent.Selection;
+        obj.OnSelect();
+
+    }
+
+
+
     public void SwitchPrimarySelected(SelectableObject primary = null) {
         if (primary == null && SelectedObjects.Count > 0) {
             PrimarySelectable = SelectedObjects[SelectedObjects.Count - 1];
@@ -523,6 +535,7 @@ public class SelectionManager : MonoBehaviour
             {
                 PrimarySelectable = SelectedObjects[SelectedObjects.Count - 1];
             }
+            selectionChanged = true;
         }
         else
         {

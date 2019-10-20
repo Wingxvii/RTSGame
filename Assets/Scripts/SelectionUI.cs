@@ -21,48 +21,52 @@ public class SelectionUI : MonoBehaviour
     //single pattern ends here
     #endregion  
 
-
-    //UI selection buttons
-    public List<float> XPos;
-    public List<float> YPos;
-
     public List<Button> pages;
     public int currPage = 1;
     public int itemsPerPage;
 
     //these are the UI Parameters
-    public float XStart = -216;
-    public float XOffset = 55;
+    public float XStart = -215;
+    public float XOffset = 99;
     public int numOfCols = 14;
 
-    public float YStart = -396;
+    public float YStart = -400;
     public float YOffset = -55;
     public int numOfRows = 2;
 
     //prefabs
-    public GameObject ButtonDroid;
-    public GameObject ButtonBarracks;
-    public GameObject ButtonWall;
-    public GameObject ButtonTurret;
+    public Sprite ButtonDroid;
+    public Sprite ButtonBarracks;
+    public Sprite ButtonWall;
+    public Sprite ButtonTurret;
+    public GameObject ButtonPrefab;
 
-    public List<SelectionButton> buttons;
+    public GameObject UIParent;
 
+    public List<GameObject> buttonPool;
 
     // Start is called before the first frame update
     void Start()
     {
         //fill positions in slot
-        for (int counter = 0; counter < numOfCols; counter++)
+        for (int counter2 = 0; counter2 < numOfRows; counter2++)
         {
-            XPos.Add(XStart + (counter * XOffset));
-        }
-        for (int counter = 0; counter < numOfRows; counter++)
-        {
-            YPos.Add(YStart + (counter * YOffset));
+            for (int counter = 0; counter < numOfCols; counter++)
+            {
+                Vector3 pos = new Vector3(XStart + (counter * XOffset), YStart + (counter2 * YOffset), 0.0f);
+                buttonPool.Add(GameObject.Instantiate(ButtonPrefab, pos + UIParent.transform.position, Quaternion.identity));
+            }
         }
 
-        itemsPerPage = numOfRows * numOfCols;
-        
+        foreach (GameObject button in buttonPool)
+        {
+            button.gameObject.SetActive(false);
+            button.transform.parent = UIParent.transform;
+        }
+
+
+        itemsPerPage = buttonPool.Count;
+
         foreach (Button button in pages)
         {
             button.gameObject.SetActive(false);
@@ -71,8 +75,36 @@ public class SelectionUI : MonoBehaviour
 
     public void ProcessUI(bool resetPage) {
         if (resetPage) { currPage = 1; }
-        foreach (SelectableObject obj in SelectionManager.Instance.SelectedObjects) {
 
+        foreach (GameObject button in buttonPool)
+        {
+            button.gameObject.SetActive(false);
+        }
+
+        int objCounter = 0;
+        foreach (SelectableObject obj in SelectionManager.Instance.SelectedObjects) {
+            objCounter++;
+            if (objCounter < itemsPerPage) {
+                buttonPool[objCounter - 1].SetActive(true);
+
+                switch (obj.type) {
+                    case EntityType.Barracks:
+                        buttonPool[objCounter - 1].GetComponent<Image>().sprite = ButtonBarracks;
+                        break;
+                    case EntityType.Droid:
+                        buttonPool[objCounter - 1].GetComponent<Image>().sprite = ButtonDroid;
+                        break;
+                    case EntityType.Wall:
+                        buttonPool[objCounter - 1].GetComponent<Image>().sprite = ButtonWall;
+                        break;
+                    case EntityType.Turret:
+                        buttonPool[objCounter - 1].GetComponent<Image>().sprite = ButtonTurret;
+                        break;
+                }
+
+
+                buttonPool[objCounter - 1].GetComponent<SelectionButton>().OnCreate(obj);
+            }
         }
     }
 
@@ -82,7 +114,13 @@ public class SelectionUI : MonoBehaviour
     }
 
     public void OnElementSelected(SelectionButton button) {
-
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl))
+        {
+            SelectionManager.Instance.DeselectItem(button.parentObject);
+        }
+        else {
+            SelectionManager.Instance.OnFocusSelected(button.parentObject);
+        }
     }
 
 }

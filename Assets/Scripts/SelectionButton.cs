@@ -8,12 +8,6 @@ public class SelectionButton : MonoBehaviour
     public EntityType prefabType;
     public SelectableObject parentObject;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -22,6 +16,7 @@ public class SelectionButton : MonoBehaviour
 
     public void OnCreate(SelectableObject parentObj) {
         parentObject = parentObj;
+        prefabType = parentObj.type;
     }
 
     public void OnClick()
