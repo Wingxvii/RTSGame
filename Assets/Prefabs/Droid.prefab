@@ -231,11 +231,11 @@ MonoBehaviour:
   maxSpeed: 10
   minSpeed: 2
   state: 0
-  journeyAccuracy: 5
+  journeyAccuracy: 6
   attackDamage: 5
   coolDown: 1
   currentCoolDown: 0
-  visualRange: 35
+  visualRange: 30
 --- !u!54 &7709805804806494388
 Rigidbody:
   m_ObjectHideFlags: 0

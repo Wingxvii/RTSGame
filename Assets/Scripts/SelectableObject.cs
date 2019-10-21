@@ -20,6 +20,7 @@ public enum EntityType
 public class SelectableObject : MonoBehaviour
 {
     public Behaviour halo;
+
     public int level = 1;
     public int id;
     public EntityType type;
