@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using dll;
 
 public class RTSManager : MonoBehaviour
 {
@@ -64,14 +65,17 @@ public class RTSManager : MonoBehaviour
             case 1:
                 prefabObject = (GameObject)Instantiate(turretPrefab);
                 prefabType = EntityType.Turret;
+                UserMetrics.TurretIncrease();
                 break;
             case 2:
                 prefabObject = (GameObject)Instantiate(barracksPrefab);
                 prefabType = EntityType.Barracks;
+                UserMetrics.BuildingIncrease();
                 break;
             case 3:
                 prefabObject = (GameObject)Instantiate(wallPrefab);
                 prefabType = EntityType.Wall;
+                UserMetrics.BuildingIncrease();
                 break;
         }
         //define the variable changes required for the prefab
@@ -141,9 +145,14 @@ public class RTSManager : MonoBehaviour
         #endregion
 
         if (prefabObject != null && prefabObject.activeSelf) {
-            prefabObject.GetComponent<Transform>().position = new Vector3(SelectionManager.Instance.mousePosition.x, SelectionManager.Instance.mousePosition.y + prefabObject.GetComponent<Transform>().localScale.y , SelectionManager.Instance.mousePosition.z);
+            prefabObject.GetComponent<Transform>().position = 
+                new Vector3(
+                    SelectionManager.Instance.mousePosition.x, 
+                    SelectionManager.Instance.mousePosition.y + prefabObject.GetComponent<Transform>().localScale.y , 
+                    SelectionManager.Instance.mousePosition.z);
             //prefabObject.GetComponent<Transform>().position = SelectionManager.Instance.mousePosition;
         }
+        UserMetrics.UpdateFile();
 
     }
 
@@ -232,6 +241,7 @@ public class RTSManager : MonoBehaviour
                         case 1:
                             Barracks temp = (Barracks)obj;
                             temp.OnTrainRequest();
+                            UserMetrics.DroidIncrease();
                             break;
                         default:
                             Debug.Log("ERROR UNIT TYPE MISSING");
