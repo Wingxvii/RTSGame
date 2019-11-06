@@ -69,7 +69,8 @@ public class ResourceManager : MonoBehaviour
             credits = 99999;
         }
         else {
-            credits += 1;
+            credits += 5;
+            dll.UserMetrics.CreditEarnedIncrease(5);
         }
 
         creditText.text = credits.ToString();
@@ -83,39 +84,39 @@ public class ResourceManager : MonoBehaviour
                 if (credits >= ResourceConstants.COST_BARRACKS)
                 {
                     credits -= ResourceConstants.COST_BARRACKS;
+                    dll.UserMetrics.CreditSpentIncrease(ResourceConstants.COST_BARRACKS);
                     return true;
                 }
-                return false;
                 break;
             case EntityType.Droid:
                 if (credits >= ResourceConstants.COST_DROIDS)
                 {
                     credits -= ResourceConstants.COST_DROIDS;
+                    dll.UserMetrics.CreditSpentIncrease(ResourceConstants.COST_DROIDS);
                     return true;
                 }
-                return false;
                 break;
             case EntityType.Turret:
                 if (credits >= ResourceConstants.COST_TURRERT)
                 {
                     credits -= ResourceConstants.COST_TURRERT;
+                    dll.UserMetrics.CreditSpentIncrease(ResourceConstants.COST_TURRERT);
                     return true;
                 }
-                return false;
                 break;
             case EntityType.Wall:
                 if (credits >= ResourceConstants.COST_WALL)
                 {
                     credits -= ResourceConstants.COST_WALL;
+                    dll.UserMetrics.CreditSpentIncrease(ResourceConstants.COST_WALL);
                     return true;
                 }
-                return false;
                 break;
-
             default:
                 Debug.Log("PURCHACE ERROR");
                 return false;
         }
+        return false;
     }
     public void UpdateSupply() {
         totalSupply = numBarracksActive * ResourceConstants.SUPPLY_PER_BARRACKS;

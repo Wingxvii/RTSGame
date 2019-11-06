@@ -23,6 +23,7 @@
     <ProjectGuid>{6A35E5E8-F8CE-493F-806C-CF11B05D5D8B}</ProjectGuid>
     <RootNamespace>UserMeticsDLL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>UserMetrics</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

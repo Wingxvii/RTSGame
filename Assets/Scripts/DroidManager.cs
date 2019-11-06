@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using dll;
 public enum DroidType {
     Base,
 }
@@ -88,6 +89,7 @@ public class DroidManager : MonoBehaviour
                 pos = pos.normalized * spawnRange;
 
                 SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
+                UserMetrics.DroidIncrease();
                 break;
             default:
                 Debug.Log("ERROR: DROID TYPE INVALID");
@@ -107,6 +109,7 @@ public class DroidManager : MonoBehaviour
 
                 SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
                 ActiveDroidPool[ActiveDroidPool.Count - 1].IssueLocation(rally);
+                UserMetrics.DroidIncrease();
                 break;
             default:
                 Debug.Log("ERROR: DROID TYPE INVALID");

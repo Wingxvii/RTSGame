@@ -7,8 +7,8 @@ void UserMetrics::updateFile()
 	if (update)
 	{
 		std::ofstream saveFile;
-		saveFile.open(filePath, std::fstream::app);
-		saveFile.clear();
+		saveFile.open(filePath, std::fstream::trunc);
+		saveFile << "RTS Player Metrics" << "\n";
 		saveFile << "Buildings Built: " << UserMetrics::buildingBuilt << "\n";
 		saveFile << "Turrets Built: " << UserMetrics::turretBuilt << "\n";
 		saveFile << "Droids Built: " << UserMetrics::droidBuilt << "\n";

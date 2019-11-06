@@ -241,7 +241,6 @@ public class RTSManager : MonoBehaviour
                         case 1:
                             Barracks temp = (Barracks)obj;
                             temp.OnTrainRequest();
-                            UserMetrics.DroidIncrease();
                             break;
                         default:
                             Debug.Log("ERROR UNIT TYPE MISSING");
