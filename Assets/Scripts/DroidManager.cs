@@ -89,6 +89,10 @@ public class DroidManager : MonoBehaviour
                 pos = pos.normalized * spawnRange;
 
                 SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
+
+                //Fire Event on spawning a droid
+                DroidSpawnEvent.FireEvent(new DroidSpawnEvent());
+
                 UserMetrics.DroidIncrease();
                 break;
             default:

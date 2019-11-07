@@ -27,20 +27,25 @@ public class Player : SelectableObject
     // Update is called once per frame
     protected override void BaseUpdate()
     {
+        //Fire Event on moving the player
         if (Input.GetKey(KeyCode.D))
         {
+            PlayerMoveEvent.FireEvent(new PlayerMoveEvent());
             playerBody.velocity += new Vector3(1 * moveSpeed, 0, 0);
         }
         if (Input.GetKey(KeyCode.A))
         {
+            PlayerMoveEvent.FireEvent(new PlayerMoveEvent());
             playerBody.velocity += new Vector3(1 * -moveSpeed, 0, 0);
         }
         if (Input.GetKey(KeyCode.W))
         {
+            PlayerMoveEvent.FireEvent(new PlayerMoveEvent());
             playerBody.velocity += new Vector3(0, 0, 1 * moveSpeed);
         }
         if (Input.GetKey(KeyCode.S))
         {
+            PlayerMoveEvent.FireEvent(new PlayerMoveEvent());
             playerBody.velocity += new Vector3(0, 0, 1 * -moveSpeed);
         }
     }
