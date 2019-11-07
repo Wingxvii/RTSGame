@@ -67,13 +67,20 @@ public class Droid : SelectableObject
                 //check if gameobject is seeable
                 journeyPoint = attackPoint.transform.position;
                 MoveTo(new Vector2(journeyPoint.x, journeyPoint.z));
+                if (Vector3.Distance(DroidManager.Instance.playerTarget.transform.position, this.transform.position) > visualRange)
+                {
+                    state = DroidState.Standing;
+                }
                 break;
             case DroidState.AttackMoving:
+                if (attackPoint != null) {
+                    journeyPoint = attackPoint.transform.position;
+                }
+
                 //check if gameobject is seeable
                 MoveTo(new Vector2(journeyPoint.x, journeyPoint.z));
                 if (Vector3.Distance(DroidManager.Instance.playerTarget.transform.position, this.transform.position) < visualRange)
                 {
-                    state = DroidState.TetherAttacking;
                     attackPoint = DroidManager.Instance.playerTarget;
                 }
                 break;
@@ -104,10 +111,11 @@ public class Droid : SelectableObject
     {
         state = DroidState.AttackMoving;
         journeyPoint = location;
+        attackPoint = null;
     }
     public void IssueAttack(Player attackee)
     {
-        state = DroidState.TetherAttacking;
+        state = DroidState.AttackMoving;
         attackPoint = attackee;
     }
 
@@ -134,7 +142,7 @@ public class Droid : SelectableObject
     {
         if (other.tag == "SelectableObject" && other.gameObject.GetComponent<SelectableObject>().type == EntityType.Player)
         {
-            state = DroidState.TetherAttacking;
+            //state = DroidState.TetherAttacking;
             attackPoint = other.gameObject.GetComponent<Player>();
             OnAttack();
         }
