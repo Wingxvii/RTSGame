@@ -123,6 +123,7 @@ public class Droid : SelectableObject
     {
         Debug.Log("Dead droid");
         DroidManager.Instance.KillDroid(this);
+        //Destroy(this);
     }
 
     //unique classes

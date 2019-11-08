@@ -89,6 +89,7 @@ public class DroidManager : MonoBehaviour
                 pos = pos.normalized * spawnRange;
 
                 SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
+                //Instantiate(DroidPrefab, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z), Quaternion.identity);
 
                 //Fire Event on spawning a droid
                 DroidSpawnEvent.FireEvent(new DroidSpawnEvent());
@@ -112,6 +113,8 @@ public class DroidManager : MonoBehaviour
                 pos = pos.normalized * spawnRange;
 
                 SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
+                //Instantiate(DroidPrefab, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z), Quaternion.identity);
+
                 ActiveDroidPool[ActiveDroidPool.Count - 1].IssueLocation(rally);
                 UserMetrics.DroidIncrease();
                 break;

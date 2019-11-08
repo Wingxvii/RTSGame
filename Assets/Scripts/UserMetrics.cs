@@ -7,7 +7,6 @@ namespace dll
 {
     public class UserMetrics
     {
-
         const string DLL_NAME = "UserMetrics";
         [DllImport(DLL_NAME)]
         public static extern void UpdateFile();
