@@ -91,9 +91,6 @@ public class DroidManager : MonoBehaviour
                 SpawnDroid(type, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z));
                 //Instantiate(DroidPrefab, new Vector3(home.position.x + pos.x, pos.y, home.position.z + pos.z), Quaternion.identity);
 
-                //Fire Event on spawning a droid
-                DroidSpawnEvent.FireEvent(new DroidSpawnEvent());
-
                 UserMetrics.DroidIncrease();
                 break;
             default:
@@ -126,6 +123,9 @@ public class DroidManager : MonoBehaviour
 
 
     public void SpawnDroid(EntityType type, Vector3 pos) {
+        //Fire Event on spawning a droid
+        DroidSpawnEvent.FireEvent(new DroidSpawnEvent());
+
         Droidpool[Droidpool.Count - 1].transform.position = pos;
         Droidpool[Droidpool.Count - 1].gameObject.SetActive(true);
 
