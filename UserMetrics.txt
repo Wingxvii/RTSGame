@@ -1,6 +1,6 @@
 RTS Player Metrics
-Buildings Built: 3
-Turrets Built: 0
-Droids Built: 65
-Credits Earned: 51600
-Credits Spent: 18000
+Buildings Built: 1
+Turrets Built: 23
+Droids Built: 0
+Credits Earned: 10415
+Credits Spent: 8900
