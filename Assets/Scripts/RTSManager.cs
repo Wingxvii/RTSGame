@@ -32,6 +32,8 @@ public class RTSManager : MonoBehaviour
     public GameObject attackCursorPrefab;
     public GameObject rallyPrefab;
 
+    public List<GameObject> ProfilingObjectPooling;
+
     //stack of undo and redo commands
     private Stack<ICommand> _Undocommands = new Stack<ICommand>();
     private Stack<ICommand> _Redocommands = new Stack<ICommand>();
@@ -96,6 +98,16 @@ public class RTSManager : MonoBehaviour
     {
         prefabObject = (GameObject)Instantiate(turretPrefab);
         prefabObject.SetActive(false);
+
+        for (int counter = 0; counter < 100; counter++)
+        {
+            ProfilingObjectPooling.Add(GameObject.Instantiate(DroidManager.Instance.DroidPrefab, new Vector3(0, 0, 0), Quaternion.identity));
+        }
+
+        foreach (GameObject gameObject in ProfilingObjectPooling)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -154,6 +166,21 @@ public class RTSManager : MonoBehaviour
         }
         UserMetrics.UpdateFile();
 
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            for (int counter = 0; counter < 100; counter++)
+            {
+                GameObject.Instantiate(DroidManager.Instance.DroidPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            foreach (GameObject gameObject in ProfilingObjectPooling)
+            {
+                gameObject.SetActive(true);
+            }
+        }
     }
 
     public float Round(float num, float multiple)
